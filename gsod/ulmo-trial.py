@@ -8,6 +8,10 @@ my_dates = []
 vals = []
 for itm in ints:
     my_dates.append(itm['date'])
-    vals.append(itm['snow_depth'])
+    sno = itm['snow_depth']
+    if sno > 900:
+        sno = None
+    vals.append(sno)
 
+from pylab import *
 plot(my_dates, vals)
