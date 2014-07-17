@@ -44,3 +44,24 @@ df2[df2['E'].isin(['two','four'])]
 s1 = pd.Series([1,2,3,4,5,6],index=pd.date_range('20130102',periods=6))
 
 df.at[dates[0],'A'] = 0
+
+
+mydata = [
+    {
+        'date': datetime.date(2013, 1, 1),
+        'snow_depth': 999.9,
+    }, {
+        'date': datetime.date(2013, 1, 2),
+        'snow_depth': 999.9,
+    }, {
+        'date': datetime.date(2013, 1, 3),
+        'snow_depth': 999.9,
+    },
+    ]
+
+#this works!!    
+myts = pd.DataFrame(mydata).set_index('date')
+myts['date2'] = pd.to_datetime(myts.index)
+myts = myts.reset_index().set_index('date2')
+
+df3 = pd.DataFrame.from_dict(mydata)
