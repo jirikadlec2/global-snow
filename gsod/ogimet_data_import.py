@@ -28,16 +28,16 @@ except:
     sys.exit()
 
 try:
-    import MySQLdb as mysql
+    import pymysql as mysql
 except:
     print "I need the 'MySQLdb' module! Please install:"
     print "pip install mysql-python"
     sys.exit()
 
 DB_HOST = 'localhost'
-DB_NAME = 'ogimet_data_import'
+DB_NAME = 'ogimetarctic'
 DB_USER = 'ogimet'
-DB_PASS = 's3cr3t'
+DB_PASS = '2c506bbe'
 
 conn, cursor = None, None
 
@@ -286,8 +286,8 @@ def save_to_database(values, header, date, check):
             if int(cursor.rowcount) == 0:
                 # Site doesn't exist, add the new site with its attributes: 
                 # latitude, longitude, and elevation
-                a,b,c = row['site']['lat'][:-1].split('-')
-                x,y,z = row['site']['lon'][:-1].split('-')
+                a, b, c = row['site']['lat'][:-1].split('-')
+                x, y, z = row['site']['lon'][:-1].split('-')
                 lat = float(a) + float(b)/60 + float(c)/3600
                 lon = float(x) + float(y)/60 + float(z)/3600
                 alt = float(re.sub('\s+m.?$', '', row['site']['alt']))
