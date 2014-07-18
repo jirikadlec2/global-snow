@@ -1,20 +1,48 @@
 import ulmo
 import datetime
+import db_save
 
-my_country = 'CZ'
-begin = '1980-01-01'
+my_country = 'DE'
+begin = '2010-01-01'
 parameter = 'snow_depth'
-st = ulmo.ncdc.gsod.get_stations(country=my_country)
-stat_one = st.keys()[0]
-ts = ulmo.ncdc.gsod.get_data(stat_one, start=begin, end=datetime.date.today())
-ints = ts[ts.keys()[0]]
+save_stations = False
+
+if save_stations:
+    stations = ulmo.ncdc.gsod.get_stations()
+    db_save.add_sites(stations)
+else:
+    stations = db_save.get_sites()
+
+st0 = stations[0]
+ts = ulmo.ncdc.gsod.get_data(st0['site_code'], start='2010-01-01', end=datetime.date.today(), parameters='snow_depth')
+ts_dict = ts[ts.keys()[0]]
+
+for st in stations:
+    ts = ulmo.ncdc.gsod.get_data(st['site_code'], start='2010-01-01', end=datetime.date.today(), parameters='snow_depth')
+    ts_list = ts[ts.keys()[0]]
+
+    if ts_list:
+        for val in ts_list:
+            val['time'] = val.pop('date')
+            if val['snow_depth'] > 900:
+                val['snow_depth'] = -9999
+            else:
+                val['snow_depth'] = int(round(val['snow_depth'] * 2.54))
+            val['val'] = val.pop('snow_depth')
+            val['site_id'] = st['site_id']
+            val['qualifier'] = 1
+
+        db_save.add_values(ts_list)
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
-df = pd.DataFrame(ints).set_index('date')
 
-#make this into a true time series
+#make this into a pandas time series data frame
+df = pd.DataFrame(ts_dict).set_index('date')
 df.index = pd.DatetimeIndex(df.index)
-df[df.snow_depth > 900] = np.NaN
-df[['mean_temp','snow_depth']]['20120101':'20131231'].plot()
+df['snow_depth'][df.snow_depth > 900] = np.NaN
+
+plt.figure()
+df[['mean_temp','snow_depth']]['20091201':'20100331'].plot()
