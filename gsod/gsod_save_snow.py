@@ -25,10 +25,10 @@ for st in stations:
             val['site_id'] = st['site_id']
             val['qualifier'] = 1
 
-            if val['snow_depth'] > 900:
-                val['snow_depth'] = -9999
+            if val['val'] > 900:
+                val['val'] = -9999
             else:
-                val['snow_depth'] = int(round(val['snow_depth'] * 2.54))
+                val['val'] = int(round(val['val'] * 2.54))
                 ts_list2.append(val)
         if save_nodata:
             db_save.add_values(ts_list)
