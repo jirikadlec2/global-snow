@@ -13,12 +13,13 @@ if save_stations:
 else:
     stations = db_save.get_sites()
 
+sites_saved = 0
 for st in stations:
     ts = ulmo.ncdc.gsod.get_data(st['site_code'], parameters='snow_depth')
     ts_list = ts[ts.keys()[0]]
 
-    ts_list2 = []
     if ts_list:
+        ts_list2 = []
         for val in ts_list:
             val['time'] = val.pop('date')
             val['val'] = val.pop('snow_depth')
@@ -33,4 +34,6 @@ for st in stations:
         if save_nodata:
             db_save.add_values(ts_list)
         else:
-            db_save.add_values(ts_list2)
+            if len(ts_list2) > 0:
+                db_save.add_values(ts_list2)
+                sites_saved += 1
