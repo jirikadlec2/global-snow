@@ -35,9 +35,9 @@ except:
     sys.exit()
 
 DB_HOST = 'localhost'
-DB_NAME = 'ogimetarctic'
-DB_USER = 'ogimet'
-DB_PASS = '2c506bbe'
+DB_NAME = 'ogimet-snow'
+DB_USER = 'ogimet-snow'
+DB_PASS = 'ogimet'
 
 conn, cursor = None, None
 
@@ -179,7 +179,7 @@ def parse_html(html):
                 'state': state.strip(), 
                 'code':  code.strip() 
             },
-            'Temp (max)':   get_val(cell, table_header.get('Temp (max)')),    
+            'Temp (max)':   get_val(cell, table_header.get('Temp (max)')),
             'Temp (min)':   get_val(cell, table_header.get('Temp (min)')),
             'Temp (mean)':  get_val(cell, table_header.get('Temp (mean)')),
             'Hr (med)':     get_val(cell, table_header.get('Hr (med)')),
@@ -257,7 +257,7 @@ def parse_table_header(html):
                 idx += 1
 
         # Remove unused columns
-        for key in ['Pressure(mb) (slp)', 'Pressure(mb) (stn)', 'Diary']:
+        for key in ['Pressure(mb) (slp)', 'Pressure(mb) (stn)', 'Diary', ]:
             if key in col_idx:
                 del col_idx[key]
 

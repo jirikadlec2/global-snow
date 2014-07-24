@@ -23,7 +23,7 @@
 import sys
 import optparse
 from datetime import *
-#import gsod library
+#import modis library
 from pygsod import downgsod
 
 #classes for required options
