@@ -1,6 +1,8 @@
 from pygsod import downgsod
 import my_gsod
-my_gsod.get_all_files()
+#my_gsod.get_all_files()
+
+mydata = my_gsod.get_data('341100-99999', year=2013)
 
 gsodOgg = downgsod.downGSOD(user = 'jirikadlec2@gmail.com',
     password='jirikadlec2@gmail.com', destinationFolder='C:/dev/gsod_data',

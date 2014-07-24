@@ -20,7 +20,7 @@ import numpy as np
 
 from ulmo import util
 
-NCDC_GSOD_DIR = os.path.join(util.get_ulmo_dir(), 'ncdc/gsod')
+NCDC_GSOD_DIR = os.path.join(util.get_ulmo_dir(), 'ncdc', 'gsod')
 NCDC_GSOD_STATIONS_FILE = os.path.join(NCDC_GSOD_DIR, 'ish-history.csv')
 NCDC_GSOD_START_DATE = datetime.date(1929, 1, 1)
 
@@ -47,26 +47,6 @@ def get_all_files(start=None, end=None):
 
 
 def get_data(station_code, year=None, parameters=None):
-    """Retrieves data for a set of stations.
-
-
-    Parameters
-    ----------
-    station_code : str or list
-        Single station code to retrieve data for.
-    year : the year where we have the data
-    end : ``None`` or date (see :ref:`dates-and-times`)
-        If specified, data are limited to values before this date.
-    parameters : ``None``, str or list
-        If specified, data are limited to this set of parameter codes.
-
-
-    Returns
-    -------
-    data_dict : dict
-        Dict with station codes keyed to lists of value dicts.
-    """
-
     if isinstance(parameters, basestring):
         parameters = [parameters]
     if parameters and not 'date' in parameters:
@@ -74,13 +54,17 @@ def get_data(station_code, year=None, parameters=None):
         parameters.insert(0, 'date')
 
     gsod_file = tar_station_filename = station_code + '-' + str(year) + '.txt'
-    gsod_path = os.path.join(NCDC_GSOD_DIR, gsod_file)
+    gsod_path = os.path.join(NCDC_GSOD_DIR, 'extract', gsod_file)
 
     year_data = _read_gsod_unzipped_file(gsod_path)
     if parameters:
         year_data = _subset_record_array(year_data, parameters)
 
-    return year_data
+    if len(year_data) > 0:
+        data_dict = _record_array_to_value_dicts(year_data)
+        return data_dict
+    else:
+        return None
 
 
 def get_stations(fips=None, country=None, state=None, start=None, end=None, update=True):
