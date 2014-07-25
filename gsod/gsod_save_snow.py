@@ -1,27 +1,23 @@
 import datetime
+import findtools
 import db_save
 import my_gsod
+import ulmo
 
-year = 1928
-parameter = 'snow_depth'
-save_stations = False
-save_nodata = False
+DB_CONNECTION = 'mysql+pymysql://root:@127.0.0.1/snow'
+NCDC_GSOD_DIR = '/home/keskari/gsod_data'
 
-if save_stations:
-    import ulmo
+def get_stations_from_year(year, gsod_dir, db):
+    txt_files_pattern = findtools.Match(filetype='f', name='*' + year + '.txt')
+    found_files = findtools.find_files(path=gsod_dir, match=txt_files_pattern)
+    for f in found_files:
+        print(f)
+    db_save.DB_CONNECTION = db
+    db_files = db_save.get_sites()
 
-    stations = ulmo.ncdc.gsod.get_stations()
-    db_save.add_sites(stations)
-else:
-    stations = db_save.get_sites()
-
-sites_saved = 0
-sites_checked = 0
-sites_error = 0
-year = 2014
-
-
-def save_gsod_snow_year(stations, year):
+def save_gsod_snow_year(stations, year, db, save_nodata=False):
+    db_save.DB_CONNECTION = db
+    my_gsod.NCDC_GSOD_DIR = NCDC_GSOD_DIR
     sites_saved = 0
     sites_checked = 0
     sites_error = 0
@@ -51,6 +47,20 @@ def save_gsod_snow_year(stations, year):
 
     return {'saved': sites_saved, 'checked': sites_checked, 'error': sites_error}
 
-for year in range(2013,1929,-1):
-    save_gsod_snow_year(stations, year)
-    print(year)
+
+def get_stations():
+    st = db_save.get_sites()
+    if not st:
+        st = ulmo.ncdc.gsod.get_stations()
+        db_save.add_sites(st)
+        return db_save.get_sites()
+    else:
+        return st
+
+
+if __name__ == "__main__":
+    db_save.DB_CONNECTION = DB_CONNECTION
+    stations = get_stations()
+    for year in range(2013,1929,-1):
+        save_gsod_snow_year(stations, year)
+        print(year)

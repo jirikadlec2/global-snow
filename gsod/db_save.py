@@ -5,11 +5,13 @@ Created on Thu Jul 17 09:39:06 2014
 @author: Jiri
 """
 import pymysql
+import psycopg2
 from sqlalchemy import *
 
+DB_CONNECTION = 'mysql+pymysql://root:@127.0.0.1/snow'
 
 def test_sql_alchemy():
-    db = create_engine('mysql+pymysql://root:@127.0.0.1/snow')
+    db = create_engine(DB_CONNECTION)
     metadata = MetaData(db)
     db.echo = True
     myT = Table('test', metadata,
@@ -29,7 +31,7 @@ def check_site(st, fields):
 
 
 def add_site(st_code, st):
-    db = create_engine('mysql+pymysql://root:@127.0.0.1/snow')
+    db = create_engine(DB_CONNECTION)
     metadata = MetaData(db)
     sites_t = Table('sites', metadata, autoload=True)
     s = sites_t.select(sites_t.c.site_code == st_code)
@@ -59,7 +61,7 @@ def add_sites(stations):
 
 
 def get_sites():
-    db = create_engine('mysql+pymysql://root:@127.0.0.1/snow')
+    db = create_engine(DB_CONNECTION)
     metadata = MetaData(db)
     sites_t = Table('sites', metadata, autoload=True)
     s = sites_t.select()
@@ -68,7 +70,7 @@ def get_sites():
     return r
 
 def add_values(ts):
-    db = create_engine('mysql+pymysql://root:@127.0.0.1/snow')
+    db = create_engine(DB_CONNECTION)
     metadata = MetaData(db)
     values_t = Table('snow', metadata, autoload=True)
     i = values_t.insert()
@@ -76,30 +78,10 @@ def add_values(ts):
 
 
 def get_site_id(st_code):
-    db = create_engine('mysql+pymysql://root:@127.0.0.1/snow')
+    db = create_engine(DB_CONNECTION)
     metadata = MetaData(db)
     sites_t = Table('sites', metadata, autoload=True)
     s = sites_t.select(sites_t.c.site_code == st_code)
     r = s.fetchone()
     return r[0]
 
-
-def add_site_old(st_code, st):
-    conn = pymysql.connect(host='127.0.0.1',
-                           port=3306, user='root',
-                           passwd='',
-                           db='snow')
-
-    cur = conn.cursor()
-    qry = """
-    INSERT INTO sites (site_name, site_code, lat, lon, elev)
-    VALUES(%s, %s, %s, %s, %s)
-    ON DUPLICATE KEY UPDATE
-    """
-    result = cur.execute(qry,
-                         (st['name'],
-                          st_code,
-                          st['latitude'],
-                          st['longitude'],
-                          st['elevation']))
-    return result

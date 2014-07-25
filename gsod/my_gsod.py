@@ -15,6 +15,7 @@ import gzip
 import itertools
 import os
 import tarfile
+import argparse
 
 import numpy as np
 
@@ -68,38 +69,7 @@ def get_data(station_code, year=None, parameters=None):
 
 
 def get_stations(fips=None, country=None, state=None, start=None, end=None, update=True):
-    """Retrieve information on the set of available stations.
 
-
-    Parameters
-    ----------
-    fips : {``None``, str, or iterable}
-        If specified, results will be limited to stations with matching fips
-        codes.
-    country : {``None``, str, or iterable}
-        If specified, results will be limited to stations with matching country
-        codes.
-    state : {``None``, str, or iterable}
-        If specified, results will be limited to stations with matching state
-        codes.
-    start : ``None`` or date (see :ref:`dates-and-times`)
-        If specified, results will be limited to stations which have data after
-        this start date.
-    end : ``None`` or date (see :ref:`dates-and-times`)
-        If specified, results will be limited to stations which have data before
-        this end date.
-    update : bool
-        If ``True`` (default), check for a newer copy of the stations file and
-        download if it is newer the previously downloaded copy. If ``False``,
-        then a new stations file will only be downloaded if a previously
-        downloaded file cannot be found.
-
-
-    Returns
-    -------
-    stations_dict : dict
-        A dict with USAF-WBAN codes keyed to station information dicts.
-    """
     if start:
         start_date = util.convert_date(start)
     else:
@@ -235,6 +205,7 @@ def _read_gsod_file(gsod_tar, station, year):
     gsod_tar.extract('./' + tar_station_filename, ncdc_extract_dir)
     with _open_gzip(temp_path, 'rb') as gunzip_f:
         out_file_name = temp_path.replace('op.gz', 'txt')
+        print (out_file_name)
         outF = open(out_file_name, 'wb')
         outF.write( gunzip_f.read() )
         outF.close()
@@ -312,3 +283,4 @@ def _subset_record_array(record_array, parameters):
             record_array[parameter] for parameter in parameters
         ]).T.tolist()
     ], dtype=dtype)
+
