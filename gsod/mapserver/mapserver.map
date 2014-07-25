@@ -1,0 +1,154 @@
+MAP
+  SIZE 600 300
+  TRANSPARENT ON
+  EXTENT -180.0 -90.0 180.0 90.0
+
+  IMAGECOLOR 255 255 255
+  IMAGEQUALITY 95
+  IMAGETYPE agg
+
+  OUTPUTFORMAT
+    NAME agg
+    DRIVER AGG/PNG
+    IMAGEMODE RGB
+  END
+  #CONFIG "MS_ERRORFILE" "/home/keskari/webapps/snow_app/htdocs/ms_error.txt"
+  #DEBUG 5
+  # Legend
+  LEGEND
+      IMAGECOLOR 255 255 255
+    STATUS ON
+    KEYSIZE 18 12
+    LABEL
+      TYPE BITMAP
+      SIZE MEDIUM
+      COLOR 0 0 89
+    END
+  END
+
+  WEB
+    IMAGEPATH "/home/keskari/tmp/"
+    IMAGEURL "http://snow.hydrodata.org/tmp/"
+    METADATA
+      "wms_title"     "GSOD Snow WMS Server"  ##required
+      "wms_onlineresource" "http://snow.hydrodata.org/mapserver.cgi?"   ##required
+      "wms_srs"       "EPSG:4326 EPSG:3857"  ##recommended
+      "wms_enable_request" "*"   ##necessary
+      "wms_feature_info_mime_type" "text/html"
+    END
+  END # Web
+
+  PROJECTION
+    "init=epsg:4326"   ##required
+  END
+
+  LAYER
+    NAME "snow_stations"
+    DUMP TRUE
+	TOLERANCE 6
+    TEMPLATE "default.html"
+    EXTENT -180.0 -90.0 180.0 90.0
+    METADATA
+      "wms_title" "snow_stations"
+      "wms_include_items" "all"
+      "gml_include_items" "all"
+      "gml_geometries" "geom"
+      "gml_geom_type" "point"
+    END
+    CONNECTIONTYPE postgis
+        CONNECTION "host=localhost dbname=snow user=snow password=snow port=5432"
+        DATA "geom FROM snow_summary USING srid=4326 USING unique site_id"
+    TYPE POINT
+    STATUS ON
+    CLASS
+      STYLE
+        COLOR 0 0 255
+        OUTLINECOLOR 0 0 0
+		SIZE 6
+		SYMBOL "circle"
+      END
+    END
+  END
+  
+  LAYER
+    NAME "snow_daily"
+	#DEBUG 5
+    DUMP TRUE
+	TOLERANCE 6
+    TEMPLATE "default.html"
+    EXTENT -180.0 -90.0 180.0 90.0
+    METADATA
+      "wms_title" "snow_daily"
+      "wms_include_items" "all"
+	  "wms_timeextent" "2013-01-01/2014-07-20"
+      "wms_timeitem" "time"
+      "wms_timedefault" "2014-01-01 00:00:00"
+      "gml_include_items" "all"
+      "gml_geometries" "geom"
+      "gml_geom_type" "point"
+    END
+    CONNECTIONTYPE postgis
+        CONNECTION "host=localhost dbname=snow user=snow password=snow port=5432"
+        DATA "geom FROM snow_daily USING srid=4326 USING unique site_id"
+    TYPE POINT
+    STATUS ON
+    CLASS
+	  NAME "< 10 cm"
+	  EXPRESSION ([val] > 10)
+      STYLE
+        COLOR 102 255 255
+        OUTLINECOLOR 0 0 0
+		SIZE 6
+		SYMBOL "circle"
+      END
+    END
+	CLASS
+	  NAME "> 10 cm"
+	  EXPRESSION ([val] >= 10)
+      STYLE
+        COLOR 153 204 255
+        OUTLINECOLOR 0 0 0
+		SIZE 6
+		SYMBOL "circle"
+      END
+    END
+  END
+  
+  # Start of symbol definition
+  SYMBOL
+    # Symbol name (referenced in STYLEs)
+    NAME "square"
+    TYPE vector # Type of symbol
+    # Start of the symbol geometry
+    POINTS
+      0 0
+      0 1
+      1 1
+      1 0
+      0 0
+    END # end of POINTS
+    # The symbol should be filled
+    FILLED true
+    # Place the according to its center
+    ANCHORPOINT 0.5 0.5
+  END # end of SYMBOL
+
+  # Start of symbol definition
+  SYMBOL
+    # Symbol name (referenced in STYLEs)
+    NAME "circle"
+    TYPE ellipse # Type of symbol
+    # Start of the symbol geometry
+    POINTS
+      1 1
+    END # end of POINTS
+    # The symbol should be filled
+    FILLED true
+    # Place the according to its center
+    ANCHORPOINT 0.5 0.5
+  END # end of SYMBOL
+  
+END
+
+
+
