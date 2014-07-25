@@ -35,6 +35,12 @@ MAP
       "wms_srs"       "EPSG:4326 EPSG:3857"  ##recommended
       "wms_enable_request" "*"   ##necessary
       "wms_feature_info_mime_type" "text/html"
+	  "wms_abstract"       "The GSOD snow measuring stations"
+	  "wfs_title"          "GSOD Snow WFS Server" ## REQUIRED
+      "wfs_onlineresource" "http://snow.hydrodata.org/mapserver.cgi?" ## Recommended
+      "wfs_srs"            "EPSG:4326 EPSG:3857" ## Recommended
+      "wfs_abstract"       "GSOD Snow sites and values" ## Recommended
+      "wfs_enable_request" "*"  # necessary
     END
   END # Web
 
@@ -54,6 +60,12 @@ MAP
       "gml_include_items" "all"
       "gml_geometries" "geom"
       "gml_geom_type" "point"
+	  
+	  "wfs_title"         "snow_stations" ##REQUIRED
+      "wfs_srs"           "EPSG:4326" ## REQUIRED
+      "gml_include_items" "all" ## Optional (serves all attributes for layer)
+      "gml_featureid"     "site_id" ## REQUIRED
+      "wfs_enable_request" "*"
     END
     CONNECTIONTYPE postgis
         CONNECTION "host=localhost dbname=snow user=snow password=snow port=5432"
