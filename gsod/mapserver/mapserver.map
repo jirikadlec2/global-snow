@@ -12,8 +12,8 @@ MAP
     DRIVER AGG/PNG
     IMAGEMODE RGB
   END
-  #CONFIG "MS_ERRORFILE" "/home/keskari/webapps/snow_app/htdocs/ms_error.txt"
-  #DEBUG 5
+  CONFIG "MS_ERRORFILE" "/home/keskari/webapps/snow_app/htdocs/ms_error.txt"
+  # DEBUG 5
   # Legend
   LEGEND
       IMAGECOLOR 255 255 255
@@ -76,7 +76,7 @@ MAP
       STYLE
         COLOR 0 0 255
         OUTLINECOLOR 0 0 0
-		SIZE 6
+		SIZE 8
 		SYMBOL "circle"
       END
     END
@@ -84,7 +84,6 @@ MAP
   
   LAYER
     NAME "snow_daily"
-	#DEBUG 5
     DUMP TRUE
 	TOLERANCE 6
     TEMPLATE "default.html"
@@ -104,15 +103,22 @@ MAP
         DATA "geom FROM snow_daily USING srid=4326 USING unique site_id"
     TYPE POINT
     STATUS ON
+	LABELITEM "val"
     CLASS
 	  NAME "< 10 cm"
-	  EXPRESSION ([val] > 10)
+	  EXPRESSION ([val] < 10)
       STYLE
         COLOR 102 255 255
-        OUTLINECOLOR 0 0 0
-		SIZE 6
+        OUTLINECOLOR 102 255 255
+		SIZE 8
 		SYMBOL "circle"
       END
+	  LABEL
+	    TYPE bitmap
+		COLOR  0 0 0
+		POSITION auto
+		PARTIALS false
+	  END
     END
 	CLASS
 	  NAME "> 10 cm"
@@ -120,9 +126,54 @@ MAP
       STYLE
         COLOR 153 204 255
         OUTLINECOLOR 0 0 0
-		SIZE 6
+		SIZE 8
 		SYMBOL "circle"
       END
+	  LABEL
+	    TYPE bitmap
+		COLOR  0 0 0
+		POSITION auto
+		PARTIALS false
+	  END
+    END
+  END
+  
+  LAYER
+    NAME "all_stations"
+    DUMP TRUE
+	TOLERANCE 6
+    TEMPLATE "default.html"
+    EXTENT -180.0 -90.0 180.0 90.0
+    METADATA
+      "wms_title" "snow_stations"
+      "wms_include_items" "all"
+      "gml_include_items" "all"
+      "gml_geometries" "geom"
+      "gml_geom_type" "point"
+	  
+	  "wfs_title"         "all_stations" ##REQUIRED
+      "wfs_srs"           "EPSG:4326" ## REQUIRED
+      "gml_include_items" "all" ## Optional (serves all attributes for layer)
+      "gml_featureid"     "site_id" ## REQUIRED
+      "wfs_enable_request" "*"
+    END
+    CONNECTIONTYPE postgis
+        CONNECTION "host=localhost dbname=snow user=snow password=snow port=5432"
+        DATA "geom FROM sites USING srid=4326 USING unique site_id"
+    TYPE POINT
+    STATUS ON
+	LABELITEM "site_name"
+    CLASS
+      STYLE
+        COLOR 0 0 255
+        OUTLINECOLOR 0 0 0
+		SIZE 8
+		SYMBOL "circle"
+      END
+	  LABEL
+	    TYPE bitmap
+		COLOR  150 150 150
+	  END
     END
   END
   

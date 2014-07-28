@@ -79,7 +79,8 @@ $( document ).ready(function() {
         );
 
 	sno_wms = new OpenLayers.Layer.WMS("Snow sites","http://snow.hydrodata.org/mapserver.cgi?",
-	{layers:"snow_daily", projection: "EPSG:3857", transparent:true, format:'image/png', info_format: "text/plain", time:get_date()},
+	{layers:"snow_daily", projection: "EPSG:3857", transparent:true, 
+	    format:'image/png', info_format: "text/plain", time:get_date()},
 	{featureInfoFormat: "text/plain"});
 	
 	var infoControls = {
@@ -117,7 +118,7 @@ $( document ).ready(function() {
 	infoControls.info1.activate();	
 	
 	map.setCenter(
-                new OpenLayers.LonLat(-100, 50).transform(
+                new OpenLayers.LonLat(15, 50).transform(
                     new OpenLayers.Projection("EPSG:4326"),
                     map.getProjectionObject()
                 ), 4
