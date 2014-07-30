@@ -5,7 +5,7 @@ Created on Thu Jul 17 09:39:06 2014
 @author: Jiri
 """
 import pymysql
-import psycopg2
+#import psycopg2
 from sqlalchemy import *
 
 DB_CONNECTION = 'mysql+pymysql://root:@127.0.0.1/snow'
@@ -68,6 +68,7 @@ def get_sites():
     rs = s.execute()
     r = list(rs.fetchall())
     return r
+    
 
 def add_values(ts):
     db = create_engine(DB_CONNECTION)
@@ -75,13 +76,24 @@ def add_values(ts):
     values_t = Table('snow', metadata, autoload=True)
     i = values_t.insert()
     i.execute(ts)
+    
 
+def get_values(st_id):
+    db = create_engine(DB_CONNECTION)
+    metadata = MetaData(db)
+    v_t = Table('snow', metadata, autoload=True)
+    s = v_t.select(v_t.c.site_id == st_id)
+    rs = s.execute()
+    r = list(rs.fetchall())
+    return r
+    
 
 def get_site_id(st_code):
     db = create_engine(DB_CONNECTION)
     metadata = MetaData(db)
     sites_t = Table('sites', metadata, autoload=True)
     s = sites_t.select(sites_t.c.site_code == st_code)
-    r = s.fetchone()
-    return r[0]
+    rs = s.execute()
+    r = rs.fetchone()
+    return r
 
