@@ -12,6 +12,16 @@ function update_date() {
 	sno_wms.mergeNewParams({'time':get_date()});
 }
 
+function update_chart() {
+   console.log('update chart!');
+   //todo dynamically run url
+   var series_url = 'http://localhost:8080/map/get_time_series.php?lat1=49&lat2=49.5&lon1=12&lon2=15&id=8&date=2014-01-01';
+   $.getJSON(series_url, function(data) {
+        chart.series[0].setData(data.values);
+		chart.setTitle({text: "New Title"});
+   });
+}
+
 $( document ).ready(function() {
 	$("#datepicker1").datepicker({ dateFormat: 'yy-mm-dd', 
 	onSelect: function(dateText) {
@@ -23,6 +33,7 @@ $( document ).ready(function() {
 		d.setDate(d.getDate() + 1);
 		$("#datepicker1").datepicker("setDate", d);
 		update_date();
+		update_chart();
     }); 
 	
 	$("#btn_prev").click(function(){       
@@ -99,7 +110,7 @@ $( document ).ready(function() {
                         "chicken", 
                         map.getLonLatFromPixel(event.xy),
                         null,
-                        t1.substring(t1.indexOf(" ", 2)),
+                        t1.substring(0, t1.indexOf(" ", 2)),
                         null,
                         true
                     ));
