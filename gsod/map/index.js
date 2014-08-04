@@ -1,4 +1,5 @@
-var map, sno_wms;		
+var map, sno_wms;
+var proj4326 = new OpenLayers.Projection("EPSG:4326");		
 		
 function get_date() {
     return document.getElementById("datepicker1").value
@@ -12,13 +13,12 @@ function update_date() {
 	sno_wms.mergeNewParams({'time':get_date()});
 }
 
-function update_chart() {
-   console.log('update chart!');
-   //todo dynamically run url
-   var series_url = 'http://localhost:8080/map/get_time_series.php?lat1=49&lat2=49.5&lon1=12&lon2=15&id=8&date=2014-01-01';
+var update_chart = function(lat, lon, tolerance) {
+   var series_url = 'http://localhost:8080/map/get_time_series.php?lat=' + lat + '&lon=' + lon + '&res=' + tolerance + '&date=' + '2014-01-01';
+   console.log(series_url);
    $.getJSON(series_url, function(data) {
         chart.series[0].setData(data.values);
-		chart.setTitle({text: "New Title"});
+		chart.setTitle({text: data.name});
    });
 }
 
@@ -94,6 +94,16 @@ $( document ).ready(function() {
 	    format:'image/png', info_format: "text/plain", time:get_date()},
 	{featureInfoFormat: "text/plain"});
 	
+	//map clicking event
+	map.events.register("click", map, function(e) {
+        var position = this.events.getMousePosition(e);
+        var lonlat = map.getLonLatFromPixel(position);
+        var lonlatTransf = lonlat.transform(map.getProjectionObject(), proj4326);
+		var metersPerPixel = map.getResolution();	//res is in meters per pixel
+        var clickTolerance = 15.0;		
+		update_chart(lonlatTransf.lat, lonlatTransf.lon, metersPerPixel * clickTolerance);       
+    });
+	
 	var infoControls = {
             info1: new OpenLayers.Control.WMSGetFeatureInfo({
                 url: "http://snow.hydrodata.org/mapserver.cgi?", 
@@ -126,7 +136,7 @@ $( document ).ready(function() {
             //infoControls[i].events.register("getfeatureinfo", this, showInfo);
             map.addControl(infoControls[i]); 
         }
-	infoControls.info1.activate();	
+	//infoControls.info1.activate();	
 	
 	map.setCenter(
                 new OpenLayers.LonLat(15, 50).transform(

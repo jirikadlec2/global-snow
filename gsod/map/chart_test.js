@@ -1,7 +1,7 @@
 var chart;
 
 $(document).ready(function () {
-var series_url='http://localhost:8080/map/get_time_series.php?lat1=49&lat2=49.5&lon1=12&lon2=15&id=2&date=2014-01-01';
+//var series_url='http://localhost:8080/map/get_time_series.php?lat1=49&lat2=49.5&lon1=12&lon2=15&id=2&date=2014-01-01';
 //var url_test='series2.json'
 
 var chart_options = {
@@ -10,7 +10,7 @@ var chart_options = {
 		zoomType: 'x',
 	},
 	title: {
-		text: 'Snow depth: Praha'
+		text: 'Snow depth: Select site on map'
 	},
 	xAxis: {
 		type: 'datetime',
@@ -47,12 +47,7 @@ var chart_options = {
 chart_options.series[0].type = 'area';
 chart_options.series[0].name = 'Snow Depth';
 chart_options.series[0].pointInterval = 24 * 3600 * 1000; //1 day
-chart_options.series[0].pointStart = Date.UTC(2014, 1, 1);
+chart_options.series[0].pointStart = Date.UTC(2014, 0, 1);
 chart = new Highcharts.Chart(chart_options);
 
-    //$.getJSON(series_url, function(data) {
-	//    
-    //    chart_options.series[0].data = data.values;
-    //    chart = new Highcharts.Chart(chart_options);
-    //});
 });
