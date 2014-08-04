@@ -13,10 +13,11 @@ function update_date() {
 	sno_wms.mergeNewParams({'time':get_date()});
 }
 
-var update_chart = function(lat, lon, tolerance) {
-   var series_url = 'http://localhost:8080/map/get_time_series.php?lat=' + lat + '&lon=' + lon + '&res=' + tolerance + '&date=' + '2014-01-01';
+var update_chart = function(lat, lon, date, tolerance) {
+   var series_url = 'http://localhost:8080/map/get_time_series.php?lat=' + lat + '&lon=' + lon + '&res=' + tolerance + '&date=' + date;
    console.log(series_url);
    $.getJSON(series_url, function(data) {
+        chart.series[0].pointStart = Date.UTC(date.substring(0,4), date.substring(5, 2) - 1, date.substring(8, 2));
         chart.series[0].setData(data.values);
 		chart.setTitle({text: data.name});
    });
@@ -100,8 +101,9 @@ $( document ).ready(function() {
         var lonlat = map.getLonLatFromPixel(position);
         var lonlatTransf = lonlat.transform(map.getProjectionObject(), proj4326);
 		var metersPerPixel = map.getResolution();	//res is in meters per pixel
-        var clickTolerance = 15.0;		
-		update_chart(lonlatTransf.lat, lonlatTransf.lon, metersPerPixel * clickTolerance);       
+        var clickTolerance = 15.0;
+        var date = get_date();		
+		update_chart(lonlatTransf.lat, lonlatTransf.lon, date, metersPerPixel * clickTolerance);       
     });
 	
 	var infoControls = {

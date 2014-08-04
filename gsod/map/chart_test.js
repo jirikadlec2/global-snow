@@ -47,7 +47,7 @@ var chart_options = {
 chart_options.series[0].type = 'area';
 chart_options.series[0].name = 'Snow Depth';
 chart_options.series[0].pointInterval = 24 * 3600 * 1000; //1 day
-chart_options.series[0].pointStart = Date.UTC(2014, 0, 1);
+chart_options.series[0].pointStart = Date.UTC(2013, 0, 1);
 chart = new Highcharts.Chart(chart_options);
 
 });
