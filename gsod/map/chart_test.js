@@ -18,10 +18,10 @@ var chart_options = {
 	},
 	yAxis: {
 		title: {
-			text: 'Snow(cm)',
-			min: 0.0,
-			max: 50.0
-		}
+			text: 'Snow(cm)'
+		},
+		min: 0.0,
+		max: 50.0
 	},
 	legend: {
 		enabled: false
