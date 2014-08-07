@@ -14,14 +14,13 @@ var chart_options = {
 	},
 	xAxis: {
 		type: 'datetime',
-		minRange: 14 * 24 * 3600000 // fourteen days
+		minRange: 14 * 24 * 3600000
 	},
 	yAxis: {
 		title: {
 			text: 'Snow(cm)'
 		},
-		min: 0.0,
-		max: 50.0
+		min: 0.0
 	},
 	legend: {
 		enabled: false
@@ -46,8 +45,8 @@ var chart_options = {
 
 chart_options.series[0].type = 'area';
 chart_options.series[0].name = 'Snow Depth';
-chart_options.series[0].pointInterval = 24 * 3600 * 1000; //1 day
-chart_options.series[0].pointStart = Date.UTC(2013, 0, 1);
+//chart_options.series[0].pointInterval = 24 * 3600 * 1000; //1 day
+//chart_options.series[0].pointStart = Date.UTC(2013, 0, 1);
 chart = new Highcharts.Chart(chart_options);
 
 });

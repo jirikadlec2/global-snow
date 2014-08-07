@@ -12,8 +12,9 @@ function dateRange( $first, $last, $step = '+1 day', $format = 'Y-m-d' ) {
 	return $dates;
 }
 
-$conn = 'mysql:host=localhost;dbname=snow';
-$pdo = new PDO($conn, 'root', '');
+//$conn = 'mysql:host=localhost;dbname=snow';
+$conn = 'pgsql:host=localhost;port=5432;dbname=snow';
+$pdo = new PDO($conn, 'snow', 'snow');
 $lat = $_GET['lat'];
 $lon = $_GET['lon'];
 $dist_lat = $_GET['res'] / 200000;
@@ -23,7 +24,7 @@ $lat2 = $lat + $dist_lat;
 $lon1 = $lon - $dist_lon;
 $lon2 = $lon + $dist_lon;
 
-$db = $pdo-> prepare('SELECT site_id, site_code, site_name, elev, lat, lon FROM sites WHERE lat >= :lat1 AND lat <= :lat2 AND lon >= :lon1 AND lon <= :lon2');
+$db = $pdo-> prepare('SELECT site_id, site_code, site_name, elev, lat, lon FROM snow_summary WHERE lat >= :lat1 AND lat <= :lat2 AND lon >= :lon1 AND lon <= :lon2');
 $date = $_GET['date'];
 $db->bindParam(':lat1', $lat1, PDO::PARAM_STR); 
 $db->bindParam(':lat2', $lat2, PDO::PARAM_STR); 

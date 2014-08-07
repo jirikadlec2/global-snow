@@ -74,7 +74,7 @@ MAP
     STATUS ON
     CLASS
       STYLE
-        COLOR 0 0 255
+        COLOR 255 255 255
         OUTLINECOLOR 0 0 0
 		SIZE 8
 		SYMBOL "circle"
@@ -109,7 +109,7 @@ MAP
 	  EXPRESSION ([val] < 10)
       STYLE
         COLOR 102 255 255
-        OUTLINECOLOR 102 255 255
+        OUTLINECOLOR 153 204 255
 		SIZE 8
 		SYMBOL "circle"
       END
@@ -135,6 +135,16 @@ MAP
 		POSITION auto
 		PARTIALS false
 	  END
+    END
+	CLASS
+	  NAME "0 or no data"
+	  EXPRESSION ([val] = null)
+      STYLE
+        COLOR 255 255 255
+        OUTLINECOLOR 0 0 0
+		SIZE 8
+		SYMBOL "circle"
+      END
     END
   END
   
