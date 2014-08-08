@@ -1,5 +1,6 @@
 import ulmo
 import datetime
+import db_save
 
 my_country = 'US'
 begin = '2010-01-01'
@@ -12,11 +13,29 @@ all_st = ulmo.ncdc.ghcn_daily.get_stations()
 for st_code in all_st:
     st_obj = all_st[st_code]
     print st_obj
-    sno_data = ulmo.ncdc.ghcn_daily.get_data(st_code, elements='SNWD', update=False, as_dataframe=True)
+    sno_data = ulmo.ncdc.ghcn_daily.get_data(st_code, elements='SNWD', update=False)
     if (len(sno_data) > 0):
+        
+        ts_list2 = []
+        sno = sno_data['SNWD']
+        
+        #now get the site id and save site if required
+        site_from_db = db_save.get_site_id(st_code)
+        if site_from_db == None:
+            site_id = db_save.add_site(st_code, st_obj)
+        else:
+            site_id = site_from_db[0]
+        #check for NaN!
+        for dat, val in sno.iteritems():
+            if val['value'] != None
+                val2 = {'time': dat, 'site_id': site_id, 'qualifier': 1, 'val': round(val['value']/10)}
+                ts_list2.append(val2)
+
+        if len(ts_list2) > 0:
+            db_save.add_values(ts_list2[1:2])     
+        
         break
-        #save or update station
-        #save or update data values
+
 
 sno_data['SNWD']['1950':'2014'].plot()
 
