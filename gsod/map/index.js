@@ -14,14 +14,11 @@ function get_date2() {
 function get_date_cryoland() {
     var d_start = get_date();
 	var d = get_date2();
-	d.setDate(d.getDate() + 1);
-	
+	d.setDate(d.getDate() + 1);	
 	var yyyy = d.getFullYear().toString();
 	var mm = (d.getMonth()+1).toString();
-	var dd =  d.getDate().toString();
-	
-	var d_end = yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]);
-	
+	var dd =  d.getDate().toString();	
+	var d_end = yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]);	
 	return d_start + 'T00:00:00Z' + '/' + d_end + 'T23:59:59Z';
 }
 
@@ -139,12 +136,12 @@ $( document ).ready(function() {
 	
 	cryoland_wms1 = new OpenLayers.Layer.WMS("Microwave daily SWE", "http://neso.cryoland.enveo.at/cryoland/ows?",
 	{layers:"daily_SWE_PanEuropean_Microwave", projection: "EPSG:3857", transparent:true,
-        format:'image/png', info_format: "text/plain", time:get_date()},
+        format:'image/png', info_format: "text/plain", time:get_date_cryoland ()},
 	{featureInfoFormat: "text/plain", visibility:false});
 	
 	cryoland_wms2 = new OpenLayers.Layer.WMS("MODIS fraction of snow", "http://neso.cryoland.enveo.at/cryoland/ows?",
 	{layers:"daily_FSC_PanEuropean_Optical", projection: "EPSG:3857", transparent:true,
-        format:'image/png', info_format: "text/plain", time:get_date()},
+        format:'image/png', info_format: "text/plain", time:get_date_cryoland()},
 	{featureInfoFormat: "text/plain", visibility:false});
 	
 	//map clicking event
