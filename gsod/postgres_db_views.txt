@@ -1,0 +1,14 @@
+snow_summary view:::
+
+SELECT st.site_name, st.site_code, st.site_id, st.elev, st.lat, st.lon, st.geom, min(sn.val) AS min_snow, max(sn.val) AS max_snow, count(sn.val) AS snow_days, min(sn."time") AS first_snow, max(sn."time") AS last_snow
+   FROM sites st
+   JOIN snow sn ON st.site_id = sn.site_id
+  GROUP BY st.site_name, st.site_code, st.site_id, st.elev, st.lat, st.lon, st.geom;
+  
+  
+snow_daily view:::
+
+SELECT st.site_id, st.site_name, st.elev, st.geom, sn."time", sn.val
+   FROM sites st
+   LEFT JOIN snow sn ON st.site_id = sn.site_id
+  ORDER BY sn."time";

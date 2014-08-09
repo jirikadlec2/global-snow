@@ -4,11 +4,12 @@ Created on Thu Jul 17 09:39:06 2014
 
 @author: Jiri
 """
-import pymysql
-#import psycopg2
+#import pymysql
+import psycopg2
 from sqlalchemy import *
 
-DB_CONNECTION = 'mysql+pymysql://root:@127.0.0.1/snow'
+#DB_CONNECTION = 'mysql+pymysql://root:@127.0.0.1/snow'
+DB_CONNECTION = 'postgresql+psycopg2://snow:snow@127.0.0.1/snow'
 
 def test_sql_alchemy():
     db = create_engine(DB_CONNECTION)
@@ -30,7 +31,7 @@ def check_site(st, fields):
     return valid
 
 
-def add_site(st_code, st):
+def add_site(st_code, st, ghcn=0):
     db = create_engine(DB_CONNECTION)
     metadata = MetaData(db)
     sites_t = Table('sites', metadata, autoload=True)
@@ -43,8 +44,9 @@ def add_site(st_code, st):
                                 'site_code': st_code,
                                 'lat': st['latitude'],
                                 'lon': st['longitude'],
-                                'elev': st['elevation']})
-        st_id = insert_res.inserted_primary_key
+                                'elev': st['elevation'],
+								'ghcn': ghcn})
+        st_id = insert_res.inserted_primary_key[0]
         return st_id
     else:
         return r['site_id']
