@@ -95,6 +95,11 @@ def add_ghcn_snow_odm(site_obj, site_id, variable_id, qualifiers, source_id):
     db_start = db_range['start']
     db_end = db_range['end']
     
+    #find metadata id's
+    meth_id = 1
+    src_id = 1
+    qc_id = 1
+    
     dv_list = []
     append = dv_list.append
     for date, row in snodat['SNWD'].iterrows():
@@ -121,13 +126,16 @@ def add_ghcn_snow_odm(site_obj, site_id, variable_id, qualifiers, source_id):
               'VariableID': variable_id,
               'CensorCode':'nc',
               'QualifierID': qualifier_id,
-              'MethodID': 1, #no method specified
-              'SourceID': 1, #no method specified
-              'QualityControlLevelID': 1} #quality controlled data}
+              'MethodID': meth_id, #no method specified
+              'SourceID': src_id, #no method specified
+              'QualityControlLevelID': qc_id} #quality controlled data}
             append(dv)
         
-    db_save.add_values_odm(dv_list)
-    #update series catalog
+    if len(dv_list) > 0:
+        db_save.add_values_odm(dv_list)
+        #update series catalog
+        db_save.update_series_catalog(site_id, variable_id, 
+                                  meth_id, src_id, qc_id, dv_list)
     return dv_list
 
 def save_snow_all():
