@@ -8,12 +8,15 @@ Created on Thu Jul 17 09:39:06 2014
 #import psycopg2
 import datetime
 from sqlalchemy import *
+import db_config
 
-DB_CONNECTION = 'mysql+pymysql://root:@127.0.0.1/ogimet-snow'
-#DB_CONNECTION = 'postgresql+psycopg2://snow:snow@127.0.0.1/snow'
+
+def db_connection():
+    return db_config.DB_CONNECTION
+    
 
 def test_sql_alchemy():
-    db = create_engine(DB_CONNECTION)
+    db = create_engine(db_connection())
     metadata = MetaData(db)
     db.echo = True
     myT = Table('test', metadata,
@@ -33,8 +36,9 @@ def check_site(st, fields):
     
 
 def add_odm_object(obj, table_name, primary_key, unique_column):
-    db = create_engine(DB_CONNECTION)
-    metadata = MetaData(db)
+    db = create_engine(db_connection())
+    conn = db.connect()
+    metadata = MetaData(conn)
     t = Table(table_name, metadata, autoload=True)
     s = t.select(t.c[unique_column] == obj[unique_column])    
     rs = s.execute()
@@ -43,24 +47,28 @@ def add_odm_object(obj, table_name, primary_key, unique_column):
         i = t.insert()
         i_res = i.execute(obj)
         v_id = i_res.inserted_primary_key[0]
-        return v_id
     else:
-        return r[primary_key]   
-    
+        v_id = r[primary_key] 
+        
+    conn.close()
+    return v_id
 
 def get_odm_object(table_name, primary_key, object_id):
-    db = create_engine(DB_CONNECTION)
-    metadata = MetaData(db)
+    db = create_engine(db_connection())
+    conn = db.connect()
+    metadata = MetaData(conn)
     t = Table(table_name, metadata, autoload=True)
     s = t.select(t.c[primary_key] == object_id)    
     rs = s.execute()
     r = rs.fetchone()
+    conn.close()
     return r
 
 
 def add_site(st_code, st, ghcn=0):
-    db = create_engine(DB_CONNECTION)
-    metadata = MetaData(db)
+    db = create_engine(db_connection())
+    conn = db.connect()
+    metadata = MetaData(conn)
     sites_t = Table('sites', metadata, autoload=True)
     s = sites_t.select(sites_t.c.site_code == st_code)
     rs = s.execute()
@@ -74,9 +82,11 @@ def add_site(st_code, st, ghcn=0):
                                 'elev': st['elevation'],
 								'ghcn': ghcn})
         st_id = insert_res.inserted_primary_key[0]
-        return st_id
     else:
-        return r['site_id']
+        st_id = r['site_id']
+        
+    conn.close()
+    return st_id
 
 
 def add_sites(stations):
@@ -89,28 +99,33 @@ def add_sites(stations):
 
 
 def get_sites():
-    db = create_engine(DB_CONNECTION)
-    metadata = MetaData(db)
+    db = create_engine(db_connection())
+    conn = db.connect()
+    metadata = MetaData(conn)
     sites_t = Table('sites', metadata, autoload=True)
     s = sites_t.select()
     rs = s.execute()
     r = list(rs.fetchall())
+    conn.close()
     return r
 
 
 def add_values_odm(values_list):
-    db = create_engine(DB_CONNECTION)
-    metadata = MetaData(db)
+    db = create_engine(db_connection())
+    conn = db.connect()
+    metadata = MetaData(conn)
     values_t = Table('datavalues', metadata, autoload=True)
     i = values_t.insert()
     i.execute(values_list)
+    conn.close()
     
 def update_series_catalog(st_id, var_id, meth_id, src_id, qc_id, values_list):
     start_date = values_list[0]['LocalDateTime']
     end_date = values_list[-1]['LocalDateTime']
     
-    db = create_engine(DB_CONNECTION)
-    metadata = MetaData(db)
+    db = create_engine(db_connection())
+    conn = db.connect()
+    metadata = MetaData(conn)
     #get site information
     site = get_odm_object('sites', 'SiteID', st_id)
     #get variable info
@@ -178,47 +193,55 @@ def update_series_catalog(st_id, var_id, meth_id, src_id, qc_id, values_list):
                'ValueCount':len(values_list)}
         i = t.update().where(t.c.SiteID==st_id and t.c.VariableID==var_id)
         i.execute(obj)
-        
+    conn.close()
     
     
 def get_odm_value_range(st_id, variable_id):
-    db = create_engine(DB_CONNECTION)
-    metadata = MetaData(db)
+    db = create_engine(db_connection())
+    conn = db.connect()
+    metadata = MetaData(conn)
     t = Table('seriescatalog', metadata, autoload=True)
     s = t.select(t.c.SiteID == st_id and t.c.VariableID == variable_id)
     rs = s.execute()
     r = rs.fetchone()
     if r:
-        return {'start': r.BeginDateTime, 'end': r.EndDateTime}
+        ret = {'start': r.BeginDateTime, 'end': r.EndDateTime}
     else:
-        return {'start': datetime.datetime(1900,1,1, 0, 0, 0), 
+        ret ={'start': datetime.datetime(1900,1,1, 0, 0, 0), 
                 'end': datetime.datetime(1900, 1, 1, 0, 0, 0)}
+    conn.close()
+    return ret
         
 
 def add_values(ts):
-    db = create_engine(DB_CONNECTION)
-    metadata = MetaData(db)
+    db = create_engine(db_connection())
+    conn = db.connect()
+    metadata = MetaData(conn)
     values_t = Table('snow', metadata, autoload=True)
     i = values_t.insert()
     i.execute(ts)
-    
+    conn.close()
 
 def get_values(st_id):
-    db = create_engine(DB_CONNECTION)
-    metadata = MetaData(db)
+    db = create_engine(db_connection())
+    conn = db.connect()
+    metadata = MetaData(conn)
     v_t = Table('snow', metadata, autoload=True)
     s = v_t.select(v_t.c.site_id == st_id)
     rs = s.execute()
     r = list(rs.fetchall())
+    conn.close()
     return r
     
 
 def get_site_id(st_code):
-    db = create_engine(DB_CONNECTION)
-    metadata = MetaData(db)
+    db = create_engine(db_connection())
+    conn = db.connect()
+    metadata = MetaData(conn)
     sites_t = Table('sites', metadata, autoload=True)
     s = sites_t.select(sites_t.c.site_code == st_code)
     rs = s.execute()
     r = rs.fetchone()
+    conn.close()
     return r
 
