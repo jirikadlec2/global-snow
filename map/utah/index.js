@@ -1,5 +1,5 @@
 var map, highlightLayer;
-var sitesLayer;
+var sitesLayer, snotelLayer;
 var layerModisTerraTrueColor, layerModisTerraSnow;
 var wfs;
 var proj4326 = new OpenLayers.Projection("EPSG:4326");	
@@ -18,7 +18,11 @@ var my_style = new OpenLayers.Style({
    'label' : '${DataValue}',
    'labelAlign' : 'lb'
 });
-var my_style2 = new OpenLayers.Style({
+var style_snotel = new OpenLayers.Style({
+   'pointRadius': 6,
+   'externalGraphic': 'snotel.gif',
+});
+var style_ghcn = new OpenLayers.Style({
    'pointRadius': 6,
    'externalGraphic': 'favicon.ico',
 })
@@ -71,9 +75,9 @@ function update_chart(site_attributes, selected_date) {
    
    var hydro_year = get_hydrologic_year(selected_date);  
    var start_date = (hydro_year - 1) + "-10-01";
-   var end_date = hydro_year + "-09-31";
+   var end_date = hydro_year + "-09-30";
    var site_id = site_attributes["SiteID"];
-   var series_url = 'get_time_series.php?id=' + site_id + '&start=' + start_date + '&end=' + end_date;
+   var series_url = 'get_time_series.php?id=' + site_id + '&var=WTEQ' + '&start=' + start_date + '&end=' + end_date;
    console.log(series_url);
    $.getJSON(series_url, function(data) {
         
@@ -81,10 +85,31 @@ function update_chart(site_attributes, selected_date) {
 		console.log('update_chart: date' + ' ' + beginDate);
         seriesData = [];
         for (var i = 0; i < data.values.length; i++){
-            seriesData.push([beginDate + (3600 * 1000 * 24 * i), data.values[i] / 10]);
+            seriesData.push([beginDate + (3600 * 1000 * 24 * i), data.values[i]]);
         }  
 		chart.series[0].setData(seriesData);
 		chart.setTitle({text: site_attributes["SiteName"] + "(" + site_attributes["Elevation_m"] + " m)"});
+   });
+}
+
+function update_chart_snotel(site_attributes, selected_date) {
+   
+   var hydro_year = get_hydrologic_year(selected_date);  
+   var start_date = (hydro_year - 1) + "-10-01";
+   var end_date = hydro_year + "-09-30";
+   var site_id = site_attributes["id"];
+   var series_url = 'snotel_time_series.php?id=' + site_id + '&start=' + start_date + '&end=' + end_date + '&var=SNWD';
+   console.log(series_url);
+   $.getJSON(series_url, function(data) {
+        
+        var beginDate = Date.UTC(hydro_year, 9, 1);
+		console.log('update_chart: date' + ' ' + beginDate);
+        seriesData = [];
+        for (var i = 0; i < data.values.length; i++){
+            seriesData.push([beginDate + (3600 * 1000 * 24 * i), data.values[i] * 2.54]);
+        }  
+		chart.series[0].setData(seriesData);
+		chart.setTitle({text: site_attributes["name"] + "(" + site_attributes["elev"] + " ft)"});
    });
 }
 
@@ -94,7 +119,11 @@ function selected(feature) {
 	highlightLayer.removeAllFeatures();
     highlightLayer.addFeatures(highlight_point);
 	var year = get_date().substring(0,4);
-	update_chart(feature.attributes, get_date());
+	if (feature.layer === sitesLayer) {
+	    update_chart(feature.attributes, get_date());
+	} else {
+	    update_chart_snotel(feature.attributes, get_date());
+	}
 }
  
 function unselected(feature) {
@@ -112,10 +141,23 @@ function update_stations(){
 		    url: sites_url, 
 			format: new OpenLayers.Format.GeoJSON()
 		}),
-		styleMap: my_style2
+		styleMap: style_ghcn
 	});
 	map.addLayer(sitesLayer);
 	map.addLayer(highlightLayer);
+}
+
+function update_stations_snotel(){
+	var sites_url = 'snotel_geojson.php';
+	snotelLayer = new OpenLayers.Layer.Vector('SNOTEL Sites', {
+	    strategies: [new OpenLayers.Strategy.Fixed()],
+		protocol: new OpenLayers.Protocol.HTTP({
+		    url: sites_url, 
+			format: new OpenLayers.Format.GeoJSON()
+		}),
+		styleMap: style_snotel
+	});
+	map.addLayer(snotelLayer);
 }
 
 function update_stations2(date){
@@ -261,9 +303,10 @@ $( document ).ready(function() {
 	{featureInfoFormat: "text/plain"});
 	
 	update_stations();
+	update_stations_snotel();
 	
 	//var selectedFeature;
-	selectControl = new OpenLayers.Control.SelectFeature(sitesLayer,
+	selectControl = new OpenLayers.Control.SelectFeature([sitesLayer, snotelLayer],
     {
         onSelect: selected,
 		onUnselect: unselected,

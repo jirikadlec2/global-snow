@@ -1,0 +1,10 @@
+| SNOTEL SITES: MAP URL           |
+*---------------------------------*
+
+http://www.wcc.nrcs.usda.gov/ftpref/data/water/wcs/map/stations.js
+
+
+SNOTEL SITES: SINGLE STATION DATA |
+----------------------------------*
+
+http://www.wcc.nrcs.usda.gov/reportGenerator/view_csv/customSingleStationReport/daily/1039:UT:SNTL%7Cid=%22%22%7Cname/2014-01-01,2014-08-28/WTEQ::value
