@@ -14,13 +14,13 @@ var TILEMATRIXSET_GEO_500m = "EPSG4326_500m";
 
 var my_style = new OpenLayers.Style({
    'pointRadius': 6,
-   'externalGraphic': 'http://localhost:8080/map/favicon.ico',
+   'externalGraphic': 'favicon.ico',
    'label' : '${DataValue}',
    'labelAlign' : 'lb'
 });
 var my_style2 = new OpenLayers.Style({
    'pointRadius': 6,
-   'externalGraphic': 'http://localhost:8080/map/favicon.ico',
+   'externalGraphic': 'favicon.ico',
 })
 var highlight_style = new OpenLayers.Style({
     'strokeColor': '#000000'
