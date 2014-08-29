@@ -1,0 +1,2 @@
+SELECT si.SiteName, dv.DataValue FROM datavalues dv 
+INNER JOIN sites si ON dv.SiteID = si.SiteID WHERE dv.LocalDateTime = '2014-12-28'
