@@ -38,6 +38,18 @@ function get_date2() {
 	return $("#datepicker1").datepicker( "getDate" );     
 }
 
+function get_units() {
+    if( $("#cmb_units").val() === "cm") {
+	    return { "snow_unit_name": "cm",
+				"elev_unit_name": "m"
+				};
+    } else {
+	    return {"snow_unit_name": "in",
+				"elev_unit_name": "ft"
+				};
+	}				
+}
+
 function get_hydrologic_year(date) {
    var year = date.substring(0,4);
    var mon = date.substring(6,7);
@@ -70,6 +82,9 @@ function update_date() {
 	layerModisTerraSnow.mergeNewParams({'time':new_date});
 }
 
+function update_units() {
+    console.log('update units!' +  get_units());
+}
 
 function update_chart(site_attributes, selected_date) {
    
@@ -79,16 +94,25 @@ function update_chart(site_attributes, selected_date) {
    var site_id = site_attributes["SiteID"];
    var series_url = 'get_time_series.php?id=' + site_id + '&start=' + start_date + '&end=' + end_date;
    console.log(series_url);
+   var unit = get_units();
+   var snow_conv = 0.1;
+   var elev_conv = 1;
+   if (unit["snow_unit_name"] === "in") {
+       snow_conv = 0.03937;
+	   elev_conv = 3.28084;
+   }
+   
    $.getJSON(series_url, function(data) {
         
         var beginDate = Date.UTC(hydro_year, 9, 1);
 		console.log('update_chart: date' + ' ' + beginDate);
         seriesData = [];
         for (var i = 0; i < data.values.length; i++){
-            seriesData.push([beginDate + (3600 * 1000 * 24 * i), data.values[i] * 0.1]);
+            seriesData.push([beginDate + (3600 * 1000 * 24 * i), data.values[i] * snow_conv]);
         }  
 		chart.series[0].setData(seriesData);
-		chart.setTitle({text: site_attributes["SiteName"] + "(" + site_attributes["Elevation_m"] + " m)"});
+		chart.setTitle({text: site_attributes["SiteName"] + "(" + Math.round(site_attributes["Elevation_m"] * elev_conv) + " " + unit["elev_unit_name"] + ")"});
+		chart.yAxis[0].setTitle({ text: "snow (" + unit["snow_unit_name"] + ")"});
    });
 }
 
@@ -100,16 +124,26 @@ function update_chart_snotel(site_attributes, selected_date) {
    var site_id = site_attributes["id"];
    var series_url = 'snotel_time_series.php?id=' + site_id + '&start=' + start_date + '&end=' + end_date + '&var=SNWD';
    console.log(series_url);
+   var unit = get_units();
+   var snow_conv = 1;
+   var elev_conv = 1;
+   if (unit["snow_unit_name"] === "cm") {
+       snow_conv = 2.54;
+	   elev_conv = 0.3048;
+   }
+   console.log(site_attributes);
+   var elev = Math.round(site_attributes["elev"] * elev_conv)
    $.getJSON(series_url, function(data) {
         
         var beginDate = Date.UTC(hydro_year, 9, 1);
 		console.log('update_chart: date' + ' ' + beginDate);
         seriesData = [];
         for (var i = 0; i < data.values.length; i++){
-            seriesData.push([beginDate + (3600 * 1000 * 24 * i), data.values[i] * 2.54]);
+            seriesData.push([beginDate + (3600 * 1000 * 24 * i), data.values[i] * snow_conv]);
         }  
 		chart.series[0].setData(seriesData);
-		chart.setTitle({text: site_attributes["name"] + "(" + site_attributes["elev"] + " ft)"});
+		chart.setTitle({text: site_attributes["name"] + "(" + elev + " " + unit["elev_unit_name"] + ")"});
+		chart.yAxis[0].setTitle({ text: "snow (" + unit["snow_unit_name"] + ")"});
    });
 }
 
@@ -128,12 +162,9 @@ function selected(feature) {
  
 function unselected(feature) {
     console.log("unselected:" + feature.id);
-	//feature.style = my_style2;
-	//feature.layer.redraw();
 }
 
 function update_stations(){
-    //var sites_url = 'geojson.php?date=' + get_date();
 	var sites_url = 'geojson.php';
 	sitesLayer = new OpenLayers.Layer.Vector('GHCN Sites', {
 	    strategies: [new OpenLayers.Strategy.Fixed()],
@@ -187,6 +218,10 @@ $( document ).ready(function() {
 		$("#datepicker1").datepicker("setDate", d);
 		update_date();
     });
+	
+	$("#cmb_units").change(function() {
+	    update_units();
+	});
 
     function showInfo(evt) {
 	    //alert('show info!');
