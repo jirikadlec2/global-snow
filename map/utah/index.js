@@ -72,10 +72,11 @@ function get_date_cryoland() {
 
 function update_date() {  
     var new_date = get_date(); 
-    var cryoland_date = get_date_cryoland();
-
 	if (sitesLayer.selectedFeatures.length > 0) {
 	    update_chart(sitesLayer.selectedFeatures[0].attributes, new_date);
+	}
+	if (snotelLayer.selectedFeatures.length > 0) {
+	    update_chart_snotel(snotelLayer.selectedFeatures[0].attributes, new_date);
 	}
 	
     layerModisTerraTrueColor.mergeNewParams({'time':new_date});
@@ -84,6 +85,13 @@ function update_date() {
 
 function update_units() {
     console.log('update units!' +  get_units());
+	var new_date = get_date(); 
+	if (sitesLayer.selectedFeatures.length > 0) {
+	    update_chart(sitesLayer.selectedFeatures[0].attributes, new_date);
+	}
+	if (snotelLayer.selectedFeatures.length > 0) {
+	    update_chart_snotel(snotelLayer.selectedFeatures[0].attributes, new_date);
+	}
 }
 
 function update_chart(site_attributes, selected_date) {
