@@ -52,11 +52,18 @@ function get_units() {
 
 function get_hydrologic_year(date) {
    var year = date.substring(0,4);
-   var mon = date.substring(6,7);
+   var mon = date.substring(5,7);
    if (mon < 10){
      year = year - 1;
    }
    return year;
+}
+
+function get_date_for_chart(date) {
+    var year = date.substring(0,4);
+	var mon = date.substring(5,7);
+	var day = date.substring(8,10);
+	return Date.UTC(year, mon-1, day);
 }
 
 function get_date_cryoland() {
@@ -78,7 +85,7 @@ function update_date() {
 	if (snotelLayer.selectedFeatures.length > 0) {
 	    update_chart_snotel(snotelLayer.selectedFeatures[0].attributes, new_date);
 	}
-	
+
     layerModisTerraTrueColor.mergeNewParams({'time':new_date});
 	layerModisTerraSnow.mergeNewParams({'time':new_date});
 }
@@ -121,6 +128,10 @@ function update_chart(site_attributes, selected_date) {
 		chart.series[0].setData(seriesData);
 		chart.setTitle({text: site_attributes["SiteName"] + "(" + Math.round(site_attributes["Elevation_m"] * elev_conv) + " " + unit["elev_unit_name"] + ")"});
 		chart.yAxis[0].setTitle({ text: "snow (" + unit["snow_unit_name"] + ")"});
+		var sel_date = get_date_for_chart(selected_date);
+		chart.xAxis[0].removePlotLine('plot-line-1');
+	    chart.xAxis[0].addPlotLine({ value: sel_date, color: 'red', width: 2, zIndex: 5, id: 'plot-line-1'});
+
    });
 }
 
@@ -152,6 +163,9 @@ function update_chart_snotel(site_attributes, selected_date) {
 		chart.series[0].setData(seriesData);
 		chart.setTitle({text: site_attributes["name"] + "(" + elev + " " + unit["elev_unit_name"] + ")"});
 		chart.yAxis[0].setTitle({ text: "snow (" + unit["snow_unit_name"] + ")"});
+		var sel_date = get_date_for_chart(selected_date);
+		chart.xAxis[0].removePlotLine('plot-line-1');
+        chart.xAxis[0].addPlotLine({ value: sel_date, color: 'red', width: 2, zIndex: 5, id: 'plot-line-1'});
    });
 }
 
