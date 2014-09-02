@@ -77,7 +77,7 @@ function update_chart(site_attributes, selected_date) {
    var start_date = (hydro_year - 1) + "-10-01";
    var end_date = hydro_year + "-09-30";
    var site_id = site_attributes["SiteID"];
-   var series_url = 'get_time_series.php?id=' + site_id + '&var=WTEQ' + '&start=' + start_date + '&end=' + end_date;
+   var series_url = 'get_time_series.php?id=' + site_id + '&start=' + start_date + '&end=' + end_date;
    console.log(series_url);
    $.getJSON(series_url, function(data) {
         
@@ -85,7 +85,7 @@ function update_chart(site_attributes, selected_date) {
 		console.log('update_chart: date' + ' ' + beginDate);
         seriesData = [];
         for (var i = 0; i < data.values.length; i++){
-            seriesData.push([beginDate + (3600 * 1000 * 24 * i), data.values[i]]);
+            seriesData.push([beginDate + (3600 * 1000 * 24 * i), data.values[i] * 0.1]);
         }  
 		chart.series[0].setData(seriesData);
 		chart.setTitle({text: site_attributes["SiteName"] + "(" + site_attributes["Elevation_m"] + " m)"});
