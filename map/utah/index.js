@@ -51,17 +51,17 @@ function get_units() {
 }
 
 function get_hydrologic_year(date) {
-   var year = date.substring(0,4);
-   var mon = date.substring(5,7);
-   if (mon < 10){
-     year = year - 1;
+   var year = parseInt(date.substring(0,4));
+   var mon = parseInt(date.substring(5,7));
+   if (mon > 10){
+     year = year + 1;
    }
    return year;
 }
 
 function get_date_for_chart(date) {
     var year = date.substring(0,4);
-	var mon = date.substring(5,7);
+	var mon = parseInt(date.substring(5,7));
 	var day = date.substring(8,10);
 	return Date.UTC(year, mon-1, day);
 }
@@ -119,7 +119,7 @@ function update_chart(site_attributes, selected_date) {
    
    $.getJSON(series_url, function(data) {
         
-        var beginDate = Date.UTC(hydro_year, 9, 1);
+        var beginDate = Date.UTC((hydro_year - 1), 9, 1);
 		console.log('update_chart: date' + ' ' + beginDate);
         seriesData = [];
         for (var i = 0; i < data.values.length; i++){
@@ -154,7 +154,7 @@ function update_chart_snotel(site_attributes, selected_date) {
    var elev = Math.round(site_attributes["elev"] * elev_conv)
    $.getJSON(series_url, function(data) {
         
-        var beginDate = Date.UTC(hydro_year, 9, 1);
+        var beginDate = Date.UTC((hydro_year - 1), 9, 1);
 		console.log('update_chart: date' + ' ' + beginDate);
         seriesData = [];
         for (var i = 0; i < data.values.length; i++){
