@@ -4,3 +4,4 @@ gsod/gsod-env2
 gsod/.idea
 gsod/.pyc
 .pyc
+*.pyc

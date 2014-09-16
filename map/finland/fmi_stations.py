@@ -20,7 +20,8 @@ def parse_feature(observation_element):
         if 'featureOfInterest' in e.tag:
             name = e[0][1][0][0].text
             pos = e[0][1][0][1].text
-            return (name, pos)
+            latlon = pos.split(' ')
+            return (name, latlon[0], latlon[1])
     return (None, None)
     
     
@@ -46,3 +47,7 @@ def parse_fmi_stations(service_url):
         return series
     except:
         return "Parsing error: The Data in the Url, or in the request, was not correctly formatted."
+        
+        
+def get_snow_stations():
+    return parse_fmi_stations(get_wfs_url(FMI_APIKEY))
