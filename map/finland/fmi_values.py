@@ -30,7 +30,17 @@ def parse_fmi_values(service_url):
             if 'beginPosition' in element.tag:
                 begin = element.text
             if 'MeasurementTVP' in element.tag:
-                series.append( [element[0].text[:10], float(element[1].text)] )
+                dat = element[0].text[:10]
+                raw_val = element[1].text
+                #it is necessary to convert NaN to null for json
+                if raw_val == "NaN":
+                    val = None
+                else:
+                    val = float(raw_val)
+                    
+                series.append([dat, val]) 
+                
+                #series.append( [element[0].text[:10], float(element[1].text)] )
                 #series = [float(v) for v in element.text.split()]
                 
         return {"start": begin, "values": series}
@@ -42,4 +52,4 @@ def get_values(fmisid, year=2014):
     url = get_url(FMI_APIKEY, fmisid, year)
     #return url
     output = parse_fmi_values(url)
-    return json.dumps(output)
+    return json.dumps(output, allow_nan=False)
