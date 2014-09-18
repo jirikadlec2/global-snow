@@ -18,10 +18,13 @@ def get_wfs_url(api_key):
 def parse_feature(observation_element):
     for e in observation_element.iter():
         if 'featureOfInterest' in e.tag:
+            location = e[0][0][0][0][0]
+            attr = location.attrib.itervalues().next()
+            fmisid = attr.split('-')[2]
             name = e[0][1][0][0].text
             pos = e[0][1][0][1].text
             latlon = pos.split(' ')
-            return (name, latlon[0], latlon[1])
+            return (name, fmisid, latlon[0], latlon[1])
     return (None, None)
     
     
