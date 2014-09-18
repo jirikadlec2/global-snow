@@ -1,3 +1,9 @@
+var map;
+var modisOverlay;
+var selected_date = '2014-01-01';
+var selected_station_id = 0;
+var selected_station_name;
+
 function get_date() {
     return document.getElementById("datepicker1").value;
 }
@@ -11,16 +17,10 @@ function update_date() {
 	map.overlayMapTypes.removeAt(0); 
     map.overlayMapTypes.setAt(0,modisOverlay); 
 	if (selected_station_id > 0) {
+	    console.log('update_date: ' + selected_date);
 	    update_chart(selected_station_id, selected_date, selected_station_name);
 	}
-	update_chart();
 }
-
-var map;
-var modisOverlay;
-var selected_date = '2014-01-01';
-var selected_station_id = 0;
-var selected_station_name;
 
 $(document).ready(function () {
     

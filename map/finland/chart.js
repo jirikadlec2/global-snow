@@ -21,8 +21,8 @@ function get_hydrologic_year(date) {
    return year;
 }
 
-function update_chart(station_id, selected_date, site_name) { 
-   var hydro_year = get_hydrologic_year(selected_date);
+function update_chart(station_id, date, site_name) { 
+   var hydro_year = get_hydrologic_year(date);
    var beginDate = Date.UTC((hydro_year - 1), 9, 1);
    var series_url = get_chart_url(station_id, hydro_year);
    console.log('update_chart: load data from ' + series_url);
@@ -35,7 +35,7 @@ function update_chart(station_id, selected_date, site_name) {
 		chart.series[0].setData(data.values);
 		//chart.setTitle({text: site_name});
 		chart.setTitle({text: ''});
-		var sel_date = get_date_for_chart(selected_date);
+		var sel_date = get_date_for_chart(date);
 		chart.xAxis[0].removePlotLine('plot-line-1');
 	    chart.xAxis[0].addPlotLine({ value: sel_date, color: 'red', width: 2, zIndex: 5, id: 'plot-line-1'});
    });
