@@ -11,7 +11,6 @@ all_st = ulmo.ncdc.ghcn_daily.get_stations()
 
 for st_code in all_st:
     st_obj = all_st[st_code]
-    print st_obj
     sno_data = ulmo.ncdc.ghcn_daily.get_data(st_code, elements='SNWD', update=False, as_dataframe=True)
     if (len(sno_data) > 0):
         break

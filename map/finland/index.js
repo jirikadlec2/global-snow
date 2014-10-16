@@ -89,7 +89,7 @@ $(document).ready(function () {
     var layerOptions = {
         alt: "MODIS_Terra_TrueColor",
         getTileUrl: getTileUrl,
-        maxZoom: 11,
+        maxZoom: 18,
         minZoom: 1,
         name: "MODIS_Terra_TrueColor",
         tileSize: new google.maps.Size(256, 256),
