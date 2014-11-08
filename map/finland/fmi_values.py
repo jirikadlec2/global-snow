@@ -48,8 +48,8 @@ def parse_fmi_values(service_url):
         return "Parsing error: The Data or the url is not correctly formatted."
         
         
-def get_values(fmisid, year=2014):
-    url = get_url(FMI_APIKEY, fmisid, year)
+def get_values(fmisid, theYear):
+    url = get_url(FMI_APIKEY, fmisid, year=theYear)
     #return url
     output = parse_fmi_values(url)
     return json.dumps(output, allow_nan=False)

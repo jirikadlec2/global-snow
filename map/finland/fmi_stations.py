@@ -52,5 +52,5 @@ def parse_fmi_stations(service_url):
         return "Parsing error: The Data in the Url, or in the request, was not correctly formatted."
         
         
-def get_snow_stations():
+def get_stations():
     return parse_fmi_stations(get_wfs_url(FMI_APIKEY))
