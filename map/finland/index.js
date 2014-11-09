@@ -1,33 +1,37 @@
 var map;
-var modisOverlay;
 var selected_date = '2014-01-01';
+var modisOverlay;
 var selected_station_id = 0;
 var selected_station_name;
 
-function get_date() {
-    return document.getElementById("datepicker1").value;
-}
 
-function get_date2() {
-	return $("#datepicker1").datepicker( "getDate" );     
-}
-
-function update_date() {  
-    selected_date = get_date(); 
-	map.overlayMapTypes.removeAt(0); 
-    map.overlayMapTypes.setAt(0,modisOverlay); 
-	if (selected_station_id > 0) {
-	    console.log('update_date: ' + selected_date);
-	    update_chart(selected_station_id, selected_date, selected_station_name);
-	}
-}
 
 $(document).ready(function () {
     
+	function get_date() {
+       return document.getElementById("datepicker1").value;
+    }
+
+	function get_date2() {
+		return $("#datepicker1").datepicker( "getDate" );     
+	}
+
+	function update_date() {  
+		selected_date = get_date(); 
+		map.overlayMapTypes.removeAt(0); 
+		map.overlayMapTypes.setAt(0,modisOverlay); 
+		if (selected_station_id > 0) {
+			console.log('update_date: ' + selected_date);
+			update_chart(selected_station_id, selected_date, selected_station_name);
+		}
+	}
+	
+	
 	$("#datepicker1").datepicker({ dateFormat: 'yy-mm-dd', 
 	onSelect: function(dateText) {
        update_date()
 	}});
+	$("#datepicker1").datepicker('setDate', new Date());
 	
 	$("#btn_next").click(function(){       
 		var d = get_date2();

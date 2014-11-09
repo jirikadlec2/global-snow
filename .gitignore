@@ -7,3 +7,4 @@ gsod/.idea
 gsod/.pyc
 .pyc
 *.pyc
+__pycache__/
