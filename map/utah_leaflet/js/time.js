@@ -176,5 +176,8 @@ $(function() {
 	//set the default layers
 	backgroundLayer = createBackground();
     $("#datepicker1").datepicker('setDate', new Date());
-    update("2014-11-07");
+	var today = new Date();
+	today.setDate(today.getDate() - 1);
+	var yesterdayYMD = today.toISOString().slice(0,10);
+    update(yesterdayYMD);
 });
