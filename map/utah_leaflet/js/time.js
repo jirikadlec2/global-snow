@@ -70,7 +70,7 @@ $(function() {
     };
 
     var template =
-        "https://map1{s}.vis.earthdata.nasa.gov/wmts-geo/" +
+        "http://map1{s}.vis.earthdata.nasa.gov/wmts-geo/" +
         "{layer}/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.jpg";
 
     var createLayer = function() {
@@ -89,9 +89,9 @@ $(function() {
                 [89.9999, 179.9999]
             ],
             attribution:
-                "<a href='https://earthdata.nasa.gov/gibs'>" +
+                "<a href='http://earthdata.nasa.gov/gibs'>" +
                 "NASA EOSDIS GIBS</a>&nbsp;&nbsp;&nbsp;" +
-                "<a href='https://github.com/nasa-gibs/web-examples/blob/release/leaflet/js/time.js'>" +
+                "<a href='http://github.com/nasa-gibs/web-examples/blob/release/leaflet/js/time.js'>" +
                 "View Source" +
                 "</a>"
         });
@@ -100,12 +100,12 @@ $(function() {
 	
 	
 	var template =
-	"https://map1{s}.vis.earthdata.nasa.gov/wmts-webmerc/" +
+	"http://map1{s}.vis.earthdata.nasa.gov/wmts-webmerc/" +
 	"{layer}/default/{time}/{tileMatrixSet}/{z}/{y}/{x}.png";
 	
 
 	var createBackground = function() {
-		L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+		L.tileLayer('http://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
 			maxZoom: 18,
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
 				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -133,9 +133,9 @@ $(function() {
 				[85.0511287776, 179.999999975]
 			],
 			attribution:
-				"<a href='https://earthdata.nasa.gov/gibs'>" +
+				"<a href='http://earthdata.nasa.gov/gibs'>" +
 				"NASA EOSDIS GIBS</a>&nbsp;&nbsp;&nbsp;" +
-				"<a href='https://github.com/nasa-gibs/web-examples/blob/release/leaflet/js/webmercator-epsg3857.js'>" +
+				"<a href='http://github.com/nasa-gibs/web-examples/blob/release/leaflet/js/webmercator-epsg3857.js'>" +
 				"View Source" +
 				"</a>",
             myName: "overlay"				
