@@ -1,5 +1,7 @@
 import datetime
 import urllib2
+import os
+import codecs
 import re
 from bs4 import BeautifulSoup
 
@@ -30,7 +32,7 @@ def parse_observation(obs_url):
             sno = '0.5'
         name = line.strong.text
         t = line.find(text=re.compile('\d{2}:\d{2}'))
-        hm = re.findall('\d+',t)
+        hm = re.findall('\d+', t)
         hour = hm[0]
         minute = hm[1]
         time = '{0}:{1}'.format(hour, minute)
@@ -39,10 +41,11 @@ def parse_observation(obs_url):
         obs_list.append({'loc': coord, 'name': name, 'time': time, 'snow': sno})
     return obs_list
 
+
 import pandas as pd
 
 
-def get_observations(begin=datetime.date(2014,1,29) - datetime.timedelta(days=5), end=datetime.date(2014,1,29)):
+def get_observations(begin=datetime.date(2014, 11, 1), end=datetime.date(2015, 5, 1)):
     datelist = pd.date_range(begin, end).tolist()
     complete_list = []
     for date in datelist:
@@ -55,23 +58,26 @@ def get_observations(begin=datetime.date(2014,1,29) - datetime.timedelta(days=5)
             print date
     return complete_list
 
-my_list = get_observations()
 
-import unicodecsv
-import os
-import codecs
-file_path = os.path.join('c:\dev\snow\snow1', 'snowdata.csv')
-with codecs.open(file_path, "w", "utf-8-sig") as my_file:
-    for item in my_list:
-        my_file.write(unicode(item['date'].strftime("%Y-%m-%d")))
-        my_file.write(',')
-        my_file.write(unicode(item['time']))
-        my_file.write(',')
-        my_file.write(unicode(item['loc']['lon']))
-        my_file.write(',')
-        my_file.write(unicode(item['loc']['lat']))
-        my_file.write(',')
-        my_file.write(u'"' + item['name'] + u'"')
-        my_file.write(',')
-        my_file.write(item['snow'])
-        my_file.write('\n')
+
+
+if __name__ == "__main__":
+
+    my_list = get_observations()
+
+    base_path = os.path.basename(__file__)
+    file_path = os.path.join(base_path, 'snowdata.csv')
+    with codecs.open(file_path, "w", "utf-8-sig") as my_file:
+        for item in my_list:
+            my_file.write(unicode(item['date'].strftime("%Y-%m-%d")))
+            my_file.write(',')
+            my_file.write(unicode(item['time']))
+            my_file.write(',')
+            my_file.write(unicode(item['loc']['lon']))
+            my_file.write(',')
+            my_file.write(unicode(item['loc']['lat']))
+            my_file.write(',')
+            my_file.write(u'"' + item['name'] + u'"')
+            my_file.write(',')
+            my_file.write(item['snow'])
+            my_file.write('\n')
