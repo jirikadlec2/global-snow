@@ -45,17 +45,22 @@ def parse_observation(obs_url):
 import pandas as pd
 
 
-def get_observations(begin=datetime.date(2014, 11, 1), end=datetime.date(2015, 5, 1)):
+def get_observations(begin=datetime.date(2013, 1, 1), end=datetime.date(2015, 4, 1)):
     datelist = pd.date_range(begin, end).tolist()
     complete_list = []
     for date in datelist:
         dat2 = date.strftime("%m-%d-%Y")
+        print dat2
         obs_url = 'http://www.in-pocasi.cz/pocasi-u-vas/seznam.php?historie={0}'.format(dat2)
-        observations = parse_observation(obs_url)
-        for o in observations:
-            o['date'] = date
-            complete_list.append(o)
-            print date
+        try:
+            observations = parse_observation(obs_url)
+            for o in observations:
+                o['date'] = date
+                complete_list.append(o)
+        except urllib2.HTTPError:
+            print "Error downloading data..."
+            next
+
     return complete_list
 
 
@@ -65,9 +70,10 @@ if __name__ == "__main__":
 
     my_list = get_observations()
 
-    base_path = os.path.basename(__file__)
+    base_path = os.path.dirname(os.path.basename(__file__))
     file_path = os.path.join(base_path, 'snowdata.csv')
     with codecs.open(file_path, "w", "utf-8-sig") as my_file:
+        my_file.write('"DATE","TIME","LONGITUDE","LATITUDE","SNOW_DEPTH_CM"')
         for item in my_list:
             my_file.write(unicode(item['date'].strftime("%Y-%m-%d")))
             my_file.write(',')
