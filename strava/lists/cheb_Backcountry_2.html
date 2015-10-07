@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html class='logged-in  old-login' dir='ltr' lang='en-US' xmlns:fb='http://www.facebook.com/2008/fbml' xmlns:og='http://opengraphprotocol.org/schema/' xmlns='http://www.w3.org/TR/html5'>
+<head>
+<meta charset='UTF-8'>
+<meta content='i-eb6b813f' name='instance_id'>
+<meta content='yes' name='apple-mobile-web-app-capable'>
+<meta content='black' name='apple-mobile-web-app-status-bar-style'>
+<link href='/apple-touch-icon-180x180.png?v=dLlWydWlG6' rel='apple-touch-icon' sizes='180x180'>
+<link href='/apple-touch-icon-152x152.png?v=dLlWydWlG6' rel='apple-touch-icon' sizes='152x152'>
+<link href='/apple-touch-icon-144x144.png?v=dLlWydWlG6' rel='apple-touch-icon' sizes='144x144'>
+<link href='/apple-touch-icon-120x120.png?v=dLlWydWlG6' rel='apple-touch-icon' sizes='120x120'>
+<link href='/apple-touch-icon-114x114.png?v=dLlWydWlG6' rel='apple-touch-icon' sizes='114x114'>
+<link href='/apple-touch-icon-76x76.png?v=dLlWydWlG6' rel='apple-touch-icon' sizes='76x76'>
+<link href='/apple-touch-icon-72x72.png?v=dLlWydWlG6' rel='apple-touch-icon' sizes='72x72'>
+<link href='/apple-touch-icon-60x60.png?v=dLlWydWlG6' rel='apple-touch-icon' sizes='60x60'>
+<link href='/apple-touch-icon-57x57.png?v=dLlWydWlG6' rel='apple-touch-icon' sizes='57x57'>
+<link href='/favicon-32x32.png?v=dLlWydWlG6' rel='icon' sizes='32x32' type='image/png'>
+<link href='/android-chrome-192x192.png?v=dLlWydWlG6' rel='icon' sizes='192x192' type='image/png'>
+<link href='/favicon-96x96.png?v=dLlWydWlG6' rel='icon' sizes='96x96' type='image/png'>
+<link href='/favicon-16x16.png?v=dLlWydWlG6' rel='icon' sizes='16x16' type='image/png'>
+<link href='/manifest.json?v=dLlWydWlG6' rel='manifest'>
+<meta content='#fc4c02' name='msapplication-TileColor'>
+<meta content='/mstile-144x144.png?v=dLlWydWlG6' name='msapplication-TileImage'>
+<meta content='#fc4c02' name='theme-color'>
+<meta content='Strava' name='apple-mobile-web-app-title'>
+<meta content='Strava' name='application-name'>
+
+<style type='text/css'>
+<style>
+  .spinner, .spinner .status {
+    position: relative; }
+  
+  .spinner {
+    margin-top: 1em;
+    margin-bottom: 1em; }
+    .spinner .status {
+      top: 2px;
+      margin-left: 0.5em; }
+    .spinner.lg .graphic {
+      border-width: 3px;
+      height: 32px;
+      width: 32px; }
+    .spinner.tiny {
+      height: 10px;
+      width: 10px; }
+    .spinner.centered, .spinner.vcentered {
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      width: 100%; }
+    .spinner.vcentered {
+      left: 0;
+      margin-top: -12px;
+      position: absolute;
+      right: 0;
+      text-align: center;
+      top: 50%; }
+  
+  .spinner .graphic, .ajax-loading-image {
+    animation: spin 1.2s infinite linear;
+    -webkit-animation: spin 1.2s infinite linear;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border-color: #eee;
+    border-radius: 50%;
+    border-style: solid;
+    border-top-color: #666;
+    border-top-style: solid;
+    border-width: 2px;
+    content: "";
+    display: inline-block;
+    height: 20px;
+    position: relative;
+    vertical-align: middle;
+    width: 20px; }
+  
+  @-webkit-keyframes spin {
+    from {
+      -webkit-transform: rotate(0deg); }
+    to {
+      -webkit-transform: rotate(359deg); } }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg); }
+    to {
+      transform: rotate(359deg); } }
+</style>
+</style>
+
+<link href="http://d3nn82uaxijpm6.cloudfront.net/assets/application-3f6aef63e38a294262b68fa85f10ef4d.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://d3nn82uaxijpm6.cloudfront.net/assets/strava-app-activity-a9b5e96e82f58a55b02d19ab5009e8a8.css" media="screen" rel="stylesheet" type="text/css" />
+<!-- SVG Icons -->
+<link href="http://d3nn82uaxijpm6.cloudfront.net/assets/strava-app-icons-ead88cb91f9972a45e59b35e5cac36d1.css" media="screen" rel="stylesheet" type="text/css" />
+<!--[if lte IE 9]>
+<link href="http://d3nn82uaxijpm6.cloudfront.net/assets/application-ie-04a301a01e9ad971f44f439c583c6221.css" media="screen" rel="stylesheet" type="text/css" />
+<![endif]-->
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="kqshC8JYFYsqtrd+i41DQUHZ6TnBwHXDCWJ8x2Od2LY=" name="csrf-token" />
+<script src="http://d3nn82uaxijpm6.cloudfront.net/assets/strava-head-e2dcbf12e93fb23d5530f39814fa1160.js" type="text/javascript"></script>
+<script type='text/javascript'>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-6309847-13']);
+_gaq.push(['_setDomainName', '.strava.com']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<script type='text/javascript'>
+(function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");
+b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+
+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';d=c.getElementsByTagName("script")[0];
+d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){
+var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(
+Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?g=a[f]=[]:
+f="mixpanel";g.people=g.people||[];h=['disable','track','track_pageview','track_links',
+'track_forms','register','register_once','unregister','identify','alias','name_tag',
+'set_config','people.set','people.increment'];for(e=0;e<h.length;e++)d(g,h[e]);
+a._i.push([b,c,f])};a.__SV=1.2;})(document,window.mixpanel||[]);
+mixpanel.init("b5c499fb64c50380c0a5c12ae742c3c8");
+</script>
+<script type='text/javascript'>
+window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+heap.load(1332441679, {forceSSL: true, secureCookie: true, disableTextCapture: true});
+</script>
+<script>
+  jQuery(document).ready(function() {
+    heap.identify({handle: "7394807"});
+    heap.setEventProperties({'logged_in': 'true'});
+  })
+</script>
+
+
+<title>Strava | Activity Search</title>
+
+
+
+
+</head>
+<body class='logged-in  old-login'>
+<div class='container'>
+<header>
+<!--
+deploy: dae1a385e7275e669dbad691fc811b26191c58ce
+instance: i-eb6b813f
+env: 'ec2'
+-->
+<!--[if lte IE 8]>
+<div class='message warning ie7'>
+<p>It looks like you're using a version of Internet Explorer that Strava no longer supports. Please <a href='http://www.microsoft.com/en-us/download/ie.aspx?q=internet+explorer'>upgrade your web browser</a> &mdash; <a href='https://strava.zendesk.com/entries/20420212-Supported-Browsers-on-Strava'>Learn more</a>.</p>
+</div>
+<![endif]-->
+<nav class='nav-bar'>
+<div class='inner-content'>
+<h1 class='branding'><a href="/" class="strava-logo" title="Return to the Strava home page">Strava</a></h1>
+<div id='global-search-bar'>
+<div class='drop-down-menu float-left' id='global-search-filter'>
+<div class='selection' data-value='athletes'>Athletes</div>
+<ul class='options'>
+<li>
+<div class='clickable replace-selection' data-value='activities'>Activities</div>
+</li>
+<li>
+<div class='clickable replace-selection' data-value='athletes'>Athletes</div>
+</li>
+<li>
+<div class='clickable replace-selection' data-value='clubs'>Clubs</div>
+</li>
+<li>
+<div class='clickable replace-selection' data-value='segments'>Segments</div>
+</li>
+</ul>
+</div>
+<label for='global-search-field' id='global-search-button'>
+<div class='icon-search app-icon icon-sm icon-dark' title='Search'></div>
+</label>
+<input data-search-filter='athletes' id='global-search-field' placeholder='Search' type='text'>
+<span class='remove' id='global-search-cancel'>Cancel</span>
+<div id='global-search-autocomplete-anchor'>
+<div id='global-search-autocomplete-container'></div>
+</div>
+</div>
+<ul class='global-nav'>
+<li class='current-section tap-nav'>
+<a href="/segments/explore" class="nav-link"><div class='icon-nav icon-explore'></div>
+Explore
+</a></li>
+<li class='drop-down-menu first'>
+<a href="/dashboard" class="selection"><div class='icon-nav icon-feed'></div>
+Dashboard
+</a><ul class='options'>
+<li class=''>
+<a href="/dashboard">Activity Feed</a>
+</li>
+<li class=''>
+<a href="/athlete/segments/starred">My Segments</a>
+</li>
+<li class=''>
+<a href="/athlete/routes">My Routes</a>
+</li>
+<li class='premium opt-group'>
+<ul>
+<li class=''>
+<a href="/athlete/goals">My Goals
+<div class='icon-strava app-icon icon-xs icon-dark'></div>
+</a></li>
+<li class=''>
+<a href="/athlete/heatmaps">Heatmaps
+<div class='icon-strava app-icon icon-xs icon-dark'></div>
+</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='drop-down-menu'>
+<a href="/athlete/training/log" class="selection"><div class='icon-nav icon-training'></div>
+Training
+</a><ul class='options'>
+<li class=''>
+<a href="/athlete/training/log">Training Log</a>
+</li>
+<li class=''>
+<a href="/athlete/calendar">Training Calendar</a>
+</li>
+<li class=''>
+<a href="/athlete/training">My Activities</a>
+</li>
+<li class='premium opt-group'>
+<ul>
+<li class=''>
+<a href="/videos">Training Videos
+<div class='icon-strava app-icon icon-xs icon-dark'></div>
+</a></li>
+<li class=''>
+<a href="/athlete/training-plans">Training Plans
+<div class='icon-strava app-icon icon-xs icon-dark'></div>
+</a></li>
+<li class=''>
+<a href="/athlete/analysis">Power Curve
+<div class='icon-strava app-icon icon-xs icon-dark'></div>
+</a></li>
+<li class=''>
+<a href="/athlete/fitness">Fitness &amp; Freshness
+<div class='icon-strava app-icon icon-xs icon-dark'></div>
+</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class='drop-down-menu selected'>
+<a href="/segments/explore" class="selection"><div class='icon-nav icon-explore'></div>
+Explore
+</a><ul class='options'>
+<li class=''>
+<a href="/segments/explore">Segment Explore</a>
+</li>
+<li class=''>
+<a href="/segments/search">Segment Search</a>
+</li>
+<li class='selected'>
+<a href="/activities/search">Activity Search</a>
+</li>
+<li class=''>
+<a href="/athletes/search">Athlete Search</a>
+</li>
+<li class=''>
+<a href="/clubs/search">Clubs</a>
+</li>
+<li class=''>
+<a href="/featured-running-races">Running Races</a>
+</li>
+<li class=''>
+<a href="/local">Local
+<sup class='new'>New</sup>
+</a></li>
+</ul>
+</li>
+<li class=''>
+<a href="/challenges" class="nav-link"><div class='icon-nav icon-challenges'></div>
+Challenges
+</a></li>
+<li>
+<a href="/shop?utm_campaign=evergreen&amp;utm_medium=web&amp;utm_source=top-nav" class="nav-link"><div class='icon-nav icon-shop'></div>
+Shop
+</a></li>
+</ul>
+<ul class='user-nav new-user-nav'>
+<li>
+<div class='empty notifications' id='notifications-button' title='0 new notifications'>
+<div class='notifications-icon'>Notifications</div>
+<div id='notifications-count'>0</div>
+</div>
+<div id='notifications-drop-down'>
+<p class='no-notifications'>You have no Notifications</p>
+</div>
+</li>
+<li class='drop-down-menu user-menu tap-nav'>
+<a href="/athletes/7394807" class="selection"><div class='avatar avatar-athlete'><img alt="Jiří" src="https://dgalywyr863hv.cloudfront.net/pictures/athletes/7394807/2347019/1/medium.jpg" /></div>
+</a><ul class='options'>
+<li class='featured'>
+<a class='find-and-invite' data-source='header menu' href='javascript:;'>Invite Friends</a>
+</li>
+<li><a href="/athletes/7394807">My Profile</a></li>
+<li><a href="/settings/profile">Settings</a></li>
+<li><a href="/session" data-method="delete" rel="nofollow">Log Out</a></li>
+</ul>
+<div class='tooltip dark bottom' id='tooltip-user-menu'>Edit your profile from the Settings page of this menu.</div>
+</li>
+<li class='upload-menu tap-nav'>
+<div class='drop-down-menu'>
+<div class='new-upload-button-wrapper selection'>
+<a href="/upload" class="new-upload-button icon-upload app-icon icon-sm">Upload</a>
+</div>
+<ul class='options'>
+<li>
+<a href='/upload'>
+<span class='upload-activity app-icon icon-upload-activity'></span>
+Upload activity
+</a>
+</li>
+<li>
+<a href='/upload/manual'>
+<span class='upload-activity-manual app-icon icon-upload-activity-manual'></span>
+Add manual entry
+</a>
+</li>
+<li>
+<a href='/routes/new'>
+<span class='upload-route app-icon icon-upload-route'></span>
+Create a route
+</a>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</nav>
+
+</header>
+<div class='messages' id='system-messages-js'>
+<div class='messages'>
+</div>
+
+
+</div>
+
+
+<div class='messages'>
+<div class='message page-status-message' style='display:none;'>Loading &hellip;</div>
+</div>
+<div class='page'>
+<h1>Activity Search</h1>
+<div class='row'>
+<div class='spans4'>
+<div class='search-form' id='ride-search'>
+<form accept-charset="UTF-8" action="/activities/search" class="flow" id="find_a_ride" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+<label class='first'>City, State</label>
+<input name='location' type='text' value='Cheb'>
+<label>Keywords</label>
+<input name='keywords' type='text' value=''>
+<label>Activity Type</label>
+<select id="activity_type" name="activity_type"><option value="All">All</option>
+<option value="Ride">Ride</option>
+<option value="Run">Run</option>
+<option value="Swim">Swim</option>
+<option value="Hike">Hike</option>
+<option value="Walk">Walk</option>
+<option value="AlpineSki">Alpine Ski</option>
+<option value="BackcountrySki" selected="selected">Backcountry Ski</option>
+<option value="Canoeing">Canoeing</option>
+<option value="Crossfit">Crossfit</option>
+<option value="EBikeRide">E-Bike Ride</option>
+<option value="Elliptical">Elliptical</option>
+<option value="IceSkate">Ice Skate</option>
+<option value="InlineSkate">Inline Skate</option>
+<option value="Kayaking">Kayaking</option>
+<option value="Kitesurf">Kitesurf</option>
+<option value="NordicSki">Nordic Ski</option>
+<option value="RockClimbing">Rock Climbing</option>
+<option value="RollerSki">Roller Ski</option>
+<option value="Rowing">Rowing</option>
+<option value="Snowboard">Snowboard</option>
+<option value="Snowshoe">Snowshoe</option>
+<option value="StairStepper">Stair-Stepper</option>
+<option value="StandUpPaddling">Stand Up Paddling</option>
+<option value="Surfing">Surfing</option>
+<option value="VirtualRide">Virtual Ride</option>
+<option value="WeightTraining">Weight Training</option>
+<option value="Windsurf">Windsurf</option>
+<option value="Workout">Workout</option>
+<option value="Yoga">Yoga</option></select>
+<label class='ride'>Ride Type</label>
+<select class="ride" id="type" name="type"><option value="" selected="selected">All</option>
+<option value="road">Road</option>
+<option value="cross">Cross</option>
+<option value="mtb">Mountain</option>
+<option value="tt">Time Trial</option>
+<option value="commute">Commute</option></select>
+<div class='ranges'>
+<label>
+Distance (mi)
+<span class='distance'></span>
+</label>
+<div class='slider' id='distance'></div>
+<input id='distance_start' name='distance_start' type='hidden' value='0'>
+<input id='distance_end' name='distance_end' type='hidden' value='200'>
+<label>
+Time (<abbr title='hours'>hrs</abbr>)
+<span class='time'></span>
+</label>
+<div class='slider' id='time'></div>
+<input id='time_start' name='time_start' type='hidden' value='0.0'>
+<input id='time_end' name='time_end' type='hidden' value='10.0'>
+<label>
+Elev. Gain (ft)
+<span class='elev_gain'></span>
+</label>
+<div class='slider' id='elev_gain'></div>
+<input id='elev_gain_start' name='elev_gain_start' type='hidden' value='0'>
+<input id='elev_gain_end' name='elev_gain_end' type='hidden' value='15000'>
+</div>
+<button id='ride-search-button' type='submit'>Search</button>
+</form>
+
+</div>
+</div>
+<div class='spans12'>
+<table class='striped'>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Distance (mi)</th>
+<th>Time</th>
+<th class='last-child'>
+Elev. Gain (ft)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Winter Sport</td>
+<td><a href="/activities/186536437">mühlleithen - Cyclemeter</a></td>
+<td>12.3</td>
+<td>2:34:39</td>
+<td class='last-child'>1,016</td>
+</tr>
+<tr>
+<td>Winter Sport</td>
+<td><a href="/activities/186535068">mühlleithen - Cyclemeter</a></td>
+<td>14.7</td>
+<td>2:40:59</td>
+<td class='last-child'>1,160</td>
+</tr>
+<tr>
+<td>Winter Sport</td>
+<td><a href="/activities/186535307">mühlleithen - Cyclemeter</a></td>
+<td>14.7</td>
+<td>2:47:51</td>
+<td class='last-child'>1,172</td>
+</tr>
+<tr>
+<td>Winter Sport</td>
+<td><a href="/activities/186535458">mühlleithen - Cyclemeter</a></td>
+<td>13.0</td>
+<td>2:52:51</td>
+<td class='last-child'>1,117</td>
+</tr>
+<tr>
+<td>Winter Sport</td>
+<td><a href="/activities/186535191">mühlleithen - Cyclemeter</a></td>
+<td>14.6</td>
+<td>2:54:48</td>
+<td class='last-child'>1,199</td>
+</tr>
+<tr>
+<td>Winter Sport</td>
+<td><a href="/activities/186535363">mühlleithen - Cyclemeter</a></td>
+<td>12.2</td>
+<td>2:28:19</td>
+<td class='last-child'>1,049</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/110320027">Ronda Grande</a></td>
+<td>32.0</td>
+<td>3:16:16</td>
+<td class='last-child'>2,943</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/234474377">1. Skitour</a></td>
+<td>4.7</td>
+<td>55:57</td>
+<td class='last-child'>333</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/263442919">Two full moon night ascents to…</a></td>
+<td>4.2</td>
+<td>1:19:25</td>
+<td class='last-child'>2,418</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/99132781">01/22/2013 Bischofsgrün, BY, Germany</a></td>
+<td>4.0</td>
+<td>1:24:52</td>
+<td class='last-child'>2,449</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/102953737">Skilanglauf am Morgen</a></td>
+<td>1.6</td>
+<td>44:01</td>
+<td class='last-child'>1,189</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/253037756">2x Ochsenkopf mit Tourenski</a></td>
+<td>4.4</td>
+<td>1:32:57</td>
+<td class='last-child'>2,520</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/253884815">Skitour am Ochsenkopf bei strahlendem…</a></td>
+<td>7.0</td>
+<td>3:12:45</td>
+<td class='last-child'>5,240</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/265150182">Ochsenkopf Nord u. Süd</a></td>
+<td>5.2</td>
+<td>1:21:13</td>
+<td class='last-child'>2,006</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/247485230">Snowboard nachts</a></td>
+<td>1.5</td>
+<td>6:42</td>
+<td class='last-child'>0</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/110400798">Ochsenkopf (Strahlender Sonnenschein)</a></td>
+<td>20.1</td>
+<td>2:15:16</td>
+<td class='last-child'>1,774</td>
+</tr>
+<tr>
+<td>Run</td>
+<td><a href="/activities/251572183">Aktivität am Nachmittag</a></td>
+<td>9.5</td>
+<td>3:08:05</td>
+<td class='last-child'>2,944</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/254796700">Bezky a ind beh na okopf</a></td>
+<td>13.3</td>
+<td>2:47:51</td>
+<td class='last-child'>1,729</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/232987124">Skilaufen in Carlsfeld</a></td>
+<td>3.4</td>
+<td>48:52</td>
+<td class='last-child'>260</td>
+</tr>
+<tr>
+<td>Nordic Ski</td>
+<td><a href="/activities/125898622">01/18/2012 Bischofsgrüner Forst, BY,…</a></td>
+<td>15.0</td>
+<td>1:44:46</td>
+<td class='last-child'>1,255</td>
+</tr>
+<tr>
+<td>Nordic Ski</td>
+<td><a href="/activities/125898523">Unbenannt</a></td>
+<td>10.7</td>
+<td>1:14:18</td>
+<td class='last-child'>816</td>
+</tr>
+<tr>
+<td>Nordic Ski</td>
+<td><a href="/activities/125894249">Untere Ringloipe</a></td>
+<td>9.9</td>
+<td>1:06:02</td>
+<td class='last-child'>663</td>
+</tr>
+<tr>
+<td>Nordic Ski</td>
+<td><a href="/activities/125893753">Untere + Obere Ringloipe</a></td>
+<td>15.9</td>
+<td>1:45:22</td>
+<td class='last-child'>1,287</td>
+</tr>
+<tr>
+<td>Nordic Ski</td>
+<td><a href="/activities/125894099">Untere + Obere Ringloipe</a></td>
+<td>15.9</td>
+<td>1:39:16</td>
+<td class='last-child'>1,313</td>
+</tr>
+<tr>
+<td>Nordic Ski</td>
+<td><a href="/activities/125898564">Unbenannt</a></td>
+<td>15.8</td>
+<td>1:50:22</td>
+<td class='last-child'>1,341</td>
+</tr>
+<tr>
+<td>Nordic Ski</td>
+<td><a href="/activities/125893993">Untere + Obere Ringloipe 30km</a></td>
+<td>18.7</td>
+<td>2:01:57</td>
+<td class='last-child'>1,452</td>
+</tr>
+<tr>
+<td>Nordic Ski</td>
+<td><a href="/activities/125898685">01/17/2012 Bischofsgrüner Forst, BY,…</a></td>
+<td>15.8</td>
+<td>1:47:37</td>
+<td class='last-child'>1,331</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/237048738">höhenmeter sammeln</a></td>
+<td>4.1</td>
+<td>1:08:33</td>
+<td class='last-child'>2,007</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/238602663">07.01.15 Waldthurn, Bayern, Germany</a></td>
+<td>4.1</td>
+<td>1:10:54</td>
+<td class='last-child'>1,772</td>
+</tr>
+<tr>
+<td>Backcountry Ski</td>
+<td><a href="/activities/234789609">Skitour von Zuhause aus</a></td>
+<td>4.4</td>
+<td>1:25:00</td>
+<td class='last-child'>890</td>
+</tr>
+</tbody>
+</table>
+<div class="pagination"><a class="previous_page" rel="prev start" href="/activities/search?activity_type=BackcountrySki&amp;city=Cheb&amp;country=Czech+Republic&amp;distance_end=200&amp;distance_start=0&amp;elev_gain_end=15000&amp;elev_gain_start=0&amp;keywords=&amp;lat_lng=50.0795334%2C12.36986360000003&amp;location=Cheb&amp;page=1&amp;state=Karlovy+Vary+Region&amp;time_end=10.0&amp;time_start=0.0&amp;type=&amp;utf8=%E2%9C%93">← Previous</a> <a rel="prev start" href="/activities/search?activity_type=BackcountrySki&amp;city=Cheb&amp;country=Czech+Republic&amp;distance_end=200&amp;distance_start=0&amp;elev_gain_end=15000&amp;elev_gain_start=0&amp;keywords=&amp;lat_lng=50.0795334%2C12.36986360000003&amp;location=Cheb&amp;page=1&amp;state=Karlovy+Vary+Region&amp;time_end=10.0&amp;time_start=0.0&amp;type=&amp;utf8=%E2%9C%93">1</a> <em class="current">2</em> <a rel="next" href="/activities/search?activity_type=BackcountrySki&amp;city=Cheb&amp;country=Czech+Republic&amp;distance_end=200&amp;distance_start=0&amp;elev_gain_end=15000&amp;elev_gain_start=0&amp;keywords=&amp;lat_lng=50.0795334%2C12.36986360000003&amp;location=Cheb&amp;page=3&amp;state=Karlovy+Vary+Region&amp;time_end=10.0&amp;time_start=0.0&amp;type=&amp;utf8=%E2%9C%93">3</a> <a class="next_page" rel="next" href="/activities/search?activity_type=BackcountrySki&amp;city=Cheb&amp;country=Czech+Republic&amp;distance_end=200&amp;distance_start=0&amp;elev_gain_end=15000&amp;elev_gain_start=0&amp;keywords=&amp;lat_lng=50.0795334%2C12.36986360000003&amp;location=Cheb&amp;page=3&amp;state=Karlovy+Vary+Region&amp;time_end=10.0&amp;time_start=0.0&amp;type=&amp;utf8=%E2%9C%93">Next →</a></div>
+</div>
+</div>
+
+<div class='clear'></div>
+</div>
+<footer><div class='footer-promos'>
+<div class='row no-margins outset'>
+<div class='promo spans-one-third js-channel-footer-left'>
+<h3 class='h4'>Your Recent Activities</h3>
+<ul class='recent-activities'>
+<li>
+<img alt="Ride" class="icon" src="http://d3nn82uaxijpm6.cloudfront.net/assets/application/footer/icon-ride-xs-f08a6953f6f06a7f24236a46bbe9dd4f.png" />
+<a class='minimal' href='/activities/406605149'>Afternoon Ride</a>
+</li>
+<li>
+<img alt="Run" class="icon" src="http://d3nn82uaxijpm6.cloudfront.net/assets/application/footer/icon-run-xs-6c4a4b99eec5a61972c479e4b099c014.png" />
+<a class='minimal' href='/activities/406605109'>Afternoon Run</a>
+</li>
+<li>
+<img alt="Ride" class="icon" src="http://d3nn82uaxijpm6.cloudfront.net/assets/application/footer/icon-ride-xs-f08a6953f6f06a7f24236a46bbe9dd4f.png" />
+<a class='minimal' href='/activities/406605050'>Afternoon Ride</a>
+</li>
+<li>
+<img alt="Run" class="icon" src="http://d3nn82uaxijpm6.cloudfront.net/assets/application/footer/icon-run-xs-6c4a4b99eec5a61972c479e4b099c014.png" />
+<a class='minimal' href='/activities/404518296'>Night Run</a>
+</li>
+<li>
+<img alt="Run" class="icon" src="http://d3nn82uaxijpm6.cloudfront.net/assets/application/footer/icon-run-xs-6c4a4b99eec5a61972c479e4b099c014.png" />
+<a class='minimal' href='/activities/400939820'>Evening Run</a>
+</li>
+</ul>
+</div>
+<div class='promo spans-one-third border-left js-channel-footer-center'>
+<h3 class='h4'>Shop</h3>
+<a href="https://shop.strava.com/?utm_source=strava&amp;utm_medium=footer&amp;utm_content=dorado&amp;utm_campaign=evergreen"><img alt="" class="promo-image float-right" src="http://d3nn82uaxijpm6.cloudfront.net/assets/application/footer/img-shop-wahoo-tickr-a426d215704730b5e62afdf18edba18c.png" />
+<p>Discover gear and goods picked by athletes like you. <strong>Check out our favorite stuff at the Shop</strong>.</p>
+</a></div>
+<div class='promo spans-one-third border-left js-channel-footer-right'>
+<a href="/athlete/heatmaps" data-content="strava://analytics/mixpanel/upsell?channel=promo_footer_right&amp;content=premium"><img alt="" class="promo-image float-right" src="http://d3nn82uaxijpm6.cloudfront.net/assets/application/footer/img-heatmaps-e3f4579248e250ea62ae6bb79d3ca498.png" />
+</a><h3 class='h4'>Personal Heatmaps</h3>
+<p>Create and share an interactive visualization of all the places you've ever run or ridden.</p>
+</div>
+</div>
+</div>
+<div class='footer-global'>
+<div class='row'>
+<div class='spans5'>
+<a href="/" class="strava-logo lg bw">Strava — Built for Athletes</a>
+<div class='copyright'>
+©2015 Strava, Inc.
+All rights reserved.
+</div>
+<div class='newsletter inset' id='mc_embed_signup'>
+<div class='website-sprite email float-left'></div>
+<p class='marginless'><a href="http://news.strava.com/pub/sf/ResponseForm?_ri_=X0Gzc2X%3DWQpglLjHJlYQGiSozf7rCHKdWzeYza4mvRze7JejzaRVXMtX%3DWQpglLjHJlYQGtFnreFzc5lDirSNUvB2Ah6PeNn&amp;_ei_=EuI0cB4lm_XSkQyq89oBRyQ" target="_blank">Sign up for our newsletter and get the latest from Strava.</a></p>
+</div>
+</div>
+<div class='spans2 offset1 nav'>
+<h4>About</h4>
+<ul>
+<li><a href="/about">About</a></li>
+<li><a href="/how-it-works">How It Works</a></li>
+<li><a href="/features">Features</a></li>
+<li><a href="/mobile">Mobile</a></li>
+<li><a href="/premium?cta=premium&amp;element=nav&amp;source=global-footer">Premium</a></li>
+<li><a href="/privacy">Privacy Policy</a></li>
+<li><a href="/terms">Terms and Conditions</a></li>
+<li><a href="https://strava.zendesk.com/entries/46363890-About-Strava-Maps">About Our Maps</a></li>
+</ul>
+</div>
+<div class='spans2 nav'>
+<h4>Follow</h4>
+<ul>
+<li><a href="http://www.facebook.com/StravaRun" target="_blank">Facebook - Running</a></li>
+<li><a href="http://www.facebook.com/Strava" target="_blank">Facebook - Cycling</a></li>
+<li><a href="http://twitter.com/strava" target="_blank">Twitter</a></li>
+<li><a href="http://www.youtube.com/stravainc" target="_blank">YouTube</a></li>
+<li><a href="http://blog.strava.com">Blog</a></li>
+</ul>
+</div>
+<div class='spans2 nav'>
+<h4>Help</h4>
+<ul>
+<li><a href="https://strava.zendesk.com/home">Support</a></li>
+</ul>
+</div>
+<div class='spans2 nav'>
+<h4>More</h4>
+<ul>
+<li><a href="/local">Local</a></li>
+<li><a href="/shop" class="js-content-shop">Shop</a></li>
+<li><a href="/careers">Careers</a></li>
+<li><a href="/developers">Developers</a></li>
+<li><a href="/pros">Pros on Strava</a></li>
+<li><a href="/stand-with-us">Stand With Us</a></li>
+</ul>
+</div>
+<div class='spans2 nav'>
+<div class='drop-down-menu drop-down-xs drop-down-block' id='language-picker' tabindex='0'>
+<div class='selection'>English (US)</div>
+<ul class='options anchor-right'>
+<li>
+<div class='replace-selection clickable language-pick' language-code='en-GB'>British English</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='de-DE'>Deutsch</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='en-US'>English (US)</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='es-ES'>español</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='es-419'>español latinoamericano</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='fr-FR'>français</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='it-IT'>italiano</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='nl-NL'>Nederlands</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='pt-PT'>português</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='pt-BR'>português do Brasil</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='ru-RU'>русский</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='ko-KR'>한국어</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='ja-JP'>日本語</div>
+</li>
+<li>
+<div class='replace-selection clickable language-pick' language-code='zh-TW'>繁體中文</div>
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+</div>
+<a href="#" class="media-sm-show" id="back-to-top">Top ↑</a>
+</footer>
+
+
+</div>
+<script>
+  jQuery(document).ready(function(){
+    if (Strava && Strava.Maps && Strava.Maps.TelenavNonInteractiveMap){
+      Strava.Maps.TelenavNonInteractiveMap.TILE_HOST = "d1tnly5wepfkzd.cloudfront.net"
+    }
+  });
+</script>
+<script id='lightbox-template' type='text/template'>
+<div class='lightbox-window'>
+<button class='btn btn-unstyled lightbox-control btn-close'>
+<span class='remove alt'>&times;</span>
+</button>
+</div>
+</script>
+<script id='popover-template' type='text/template'>
+<div class='popover'></div>
+</script>
+<script>
+  window._asset_host = "http://d3nn82uaxijpm6.cloudfront.net";
+  window._measurement_preference = "feet";
+  window._date_preference = "%m/%d/%Y";
+  window._datepicker_preference_format = "mm/dd/yy"
+  
+  //async script load for twitter
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+  
+  jQuery(document).ready(function() {
+    Strava.Util.EventLogging.createInstance("https://analytics.strava.com","7215fa60b5f01ecc3967543619f7e3d9", 7394807);
+  });
+</script>
+<script src="http://d3nn82uaxijpm6.cloudfront.net/assets/strava/i18n/locales/en-US-5694bd30da4bc7a61be14d552587ae18.js" type="text/javascript"></script>
+<script src="http://d3nn82uaxijpm6.cloudfront.net/assets/application-bcaa1892d83814c4bc212eb8f44f4f83.js" type="text/javascript"></script>
+
+
+<div id='fb-root'></div>
+<script>
+  var version = 'v2.2';
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: "284597785309",
+      status: true,
+      cookie: true,
+      xfbml: true,
+      version: version
+    });
+    Strava.Facebook.PermissionsManager.getInstance().facebookReady(version);
+    jQuery('#fb-root').trigger('facebook:init');
+  };
+  (function(d){
+    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    ref.parentNode.insertBefore(js, ref);
+  }(document));
+</script>
+
+
+
+
+<script>
+  var currentAthlete = new Strava.Models.CurrentAthlete({"id":7394807,"logged_in":true,"display_name":"Ji\u0159\u00ed Kadlec","first_name":"Ji\u0159\u00ed","last_name":"Kadlec","premium":true,"photo_large":"https://dgalywyr863hv.cloudfront.net/pictures/athletes/7394807/2347019/1/large.jpg","photo":"https://dgalywyr863hv.cloudfront.net/pictures/athletes/7394807/2347019/1/large.jpg","badge":"\u003Cdiv class=\"badge premium tiny\" title=\"Premium Member\"\u003E\u003C/div\u003E","measurement_preference":"feet","weight_measurement_unit":"lbs","type":1,"member_type":"premium","display_location":"Provo, Utah","gender":"M","geo":{"city":"Provo","state":"Utah","country":"United States","lat_lng":[40.264807,-111.631291]}});
+  HAML.globals = function() {
+    return {
+      currentAthlete: currentAthlete,
+      t: {
+        distances: {"400m":"400m","805m":"1/2 mile","1000m":"1k","1500m":"1500 meters","1609m":"1 mile","3000m":"3000 meters","3219m":"2 miles","5000m":"5k","10000m":"10k","15000m":"15k","16090m":"10 miles","20000m":"20k","21097m":"Half-Marathon","30000m":"30k","42195m":"Marathon","50000m":"50k","80467m":"50 miles","100000m":"100k","160934m":"100 miles"},
+        invites_dialog: {"email":{"addresses":"Email addresses (separated by commas)","send":"Send Invites","sending":"Sending your email...","sent":"Invite sent!","title":"Email","subtitle":"Invite Message","message_label":"Message","message":"I use Strava to track my activities, create running and cycling routes, and participate in Challenges. I think you should join so we can follow each other's training.\n\n - %{inviter_name}"},"gmail":{"unauthenticated":{"title":"Add Your Contacts","message":"Add contacts from your address book by connecting your Gmail with Strava.","disclaimer":"We will never send out any email messages without your consent.","button":"Add Gmail Contacts"},"title":"Your Contacts","sending":"Sending your email...","invite_instructions":"Click the corresponding \"invite\" button to email the message below to your selected contacts."},"title":"Find and Invite Your Friends"},
+        profile: {"activity_summary":"Activity Summary Last 4 Weeks","activity_summary_short":"Last 4 Weeks","activity_type":"Activity Type","all_time":"All-Time","all_time_prs":"All-Time PRs","athlete_stats":"%{athlete_name} Stats","biggest_climb":"Biggest Climb","biggest_ride":"Biggest Ride","comments_received":"Comments Received","distance":"Distance","distance_per_week":"Avg Distance / Week","elev_gain":"Elev Gain","estimated_best_efforts":"Estimated Best Efforts","kudos_received":"Kudos Received","max_effort":"Max Effort","my_stats":"My Stats","pro_activity_summary":"%{athlete_name} Activity Last 4 Weeks","recent_achievements":"Recent Achievements","rides":"Rides","rides_per_week":"Avg Rides / Week","running_types":"Running includes runs, hikes, and walks","runs":"Runs","runs_per_week":"Avg Runs / Week","side_by_side_comparison":"Side by Side Comparison","time":"Time","time_per_week":"Avg Time / Week","total_activities":"Total Activities","ytd":"Year-to-Date"},
+        'new': "New"
+      },
+      renderPartial: function(name, context) {
+        if (context == null) {
+          context = this;
+        }
+        return JST[name](context);
+      }
+    }
+  }
+</script>
+
+<script>
+  new Strava.Initializer();
+</script>
+<script src="http://d3nn82uaxijpm6.cloudfront.net/assets/strava/maps/ProxyGeocoder-a23aff7f214f55437c80e889fff7cda3.js" type="text/javascript"></script>
+<script>
+  (function($){
+    $(document).ready(function(){
+      var distance_slide = null;
+      var time_slide = null;
+      var elev_gain_slide = null;
+      // Render the sliders with RIDE min/max params
+      function default_filters(reset_values) {
+        distance_slide = new strava.forms.Slider("distance", { start: 0, end: 200, step: 5, plus: true });
+        time_slide = new strava.forms.Slider("time", { start: 0, end: 10, step: 0.5, plus: true, time: true, seconds: false, round: false });
+        elev_gain_slide = new strava.forms.Slider("elev_gain", { start: 0, end: 15000, step: 500, plus: true });
+  
+        if (reset_values == true) {
+          $('.distance').html('0 - 200+');
+          $('.time').html('00:00 - 010:00+');
+          $('.elev_gain').html('0 - 15,000+');
+        };
+      }
+  
+      // Render the sliders with RUN min/max params
+      function run_filters(reset_values) {
+        distance_slide = new strava.forms.Slider("distance", { start: 0, end: 50, step: 2, plus: true });
+        time_slide = new strava.forms.Slider("time", { start: 0, end: 6, step: 0.25, plus: true, time: true, seconds: false, round: false });
+        elev_gain_slide = new strava.forms.Slider("elev_gain", { start: 0, end: 5000, step: 500, plus: true });
+  
+        if (reset_values == true) {
+          $('.distance').html('0 - 50+');
+          $('.time').html('00:00 - 06:00+');
+          $('.elev_gain').html('0 - 5,000+');
+        }
+      }
+  
+      // Reset Sliders
+      function reset(){
+        distance_slide.reset();
+        time_slide.reset();
+        elev_gain_slide.reset();
+      };
+  
+      // Check activity type and update the ui accordingly
+      function update_activity_type(init){
+        var activity_type = $("#activity_type").val();
+        if ( activity_type == "Ride" ){
+          $(".ride").show();
+          default_filters(init);
+        } else if (activity_type == "Run"){
+          $(".ride").hide();
+          run_filters(init);
+        } else {
+          $(".ride").hide();
+          default_filters(init);
+        }
+        if (init == true) {
+          reset();
+        };
+      };
+  
+      $("#activity_type").on("change", function(){ update_activity_type(true); });
+  
+      update_activity_type(true);
+  
+      new Strava.Util.InputGeocoder("input[name='location']");
+  
+      $("#find_a_ride").validate({
+        debug: false,
+        rules: { "location": "required" },
+        messages: { "location": { required: "You must specify a location" } },
+      });
+  
+      // banner dismissal
+      $("#banner-dismiss")
+        .bind("ajax:success", function(event, data, status, xhr) {
+          $(this).closest('section').slideUp();
+        });
+    })
+  })(jQuery)
+</script>
+<script>
+  jQuery(document).ready(function($) {
+    new Strava.GlobalSearch.SearchFieldController(currentAthlete);
+  });
+</script>
+<script>
+  // Dismiss function for alert messages
+  jQuery('document').ready(function(){
+    var dismissController = new Strava.Util.DismissController("/dashboard/dismiss_ui");
+    jQuery('.message').on('click', '.dismiss', function(){
+      dismissController.dismiss("");
+      jQuery(this).parents('.message').slideUp('fast');
+    });
+  });
+</script>
+<script>
+  jQuery(document).ready(function() {
+    jQuery('.language-pick').each(function(index) {
+      jQuery( this ).click(function() {
+        language = jQuery( this ).attr('language-code');
+        expiration = new Date();
+        expiration.setTime(expiration.getTime() + (1825 * 24 * 60 * 60 * 1000));
+        // Reset any previously set cookie for this page
+        document.cookie = 'ui_language= ; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+        // Set a global cookie
+        document.cookie = 'ui_language=' + language + '; expires=' + expiration + '; path=/';
+        location.reload(true);
+      });
+    });
+  });
+</script>
+<script>
+  jQuery(document).ready(function() {
+    new Strava.Util.Mixpanel('upsell', 7394807, { channel: 'global-nav', content: 'shop' }).trackLinks('.global-nav .js-content-shop');
+    new Strava.Util.Mixpanel('upsell', 7394807, { channel: 'footer-links', content: 'shop' }).trackLinks('.footer-global .js-content-shop');
+    jQuery('.js-channel-dashboard-right-top, .promo-simple, .promo-fancy').on('click', 'a', function(event) {
+      var link = jQuery(event.target).closest('a');
+      var content = Strava.Util.Dorado.parseMixpanelUri(link.data('mixpanel-uri'));
+      var adzerkClickUri = link.data('adzerk-click-uri')
+      if (adzerkClickUri != null) {
+        jQuery.get(adzerkClickUri); // this is fire-and-forget - we don't need to wait for a successful response from Adzerk
+      }
+      if (content != null) {
+        new Strava.Util.Mixpanel(content.event, 7394807, content.params).trackWithTimeout(event);
+      }
+    });
+    jQuery('.footer-promos').on('click', '.js-channel-footer-left a', function(event) {
+      new Strava.Util.Mixpanel('upsell', 7394807, { channel: 'promo-footer-left', content: 'recent-activities' }).trackWithTimeout(event);
+    }).on('click', '.js-channel-footer-center a', function(event) {
+      new Strava.Util.Mixpanel('upsell', 7394807, { channel: 'promo-footer-center', content: 'shop' }).trackWithTimeout(event);
+    }).on('click', '.js-channel-footer-right a', function(event) {
+      var content = Strava.Util.Dorado.parseMixpanelUri(jQuery(event.target).closest('a').data('mixpanel_uri'));
+      if (content != null) {
+        new Strava.Util.Mixpanel(content.event, 7394807, content.params).trackWithTimeout(event);
+      }
+    });
+  });
+</script>
+
+<script src="http://d3nn82uaxijpm6.cloudfront.net/assets/strava/notifications/drop_down/manifest-e1b1aab27dddd8053d60767c03aeee6b.js" type="text/javascript"></script>
+<script>
+  jQuery(function($) {
+    var mark_all_read_notifications_path = "/notifications/mark_all_read";
+    var controller = new Strava.Notifications.DropDown.MarkAllReadController(mark_all_read_notifications_path);
+    var view = new Strava.Notifications.DropDown.View(controller);
+  })
+</script>
+<script src='https://apis.google.com/js/client.js' type='text/javascript'></script>
+
+<script src='http://www.google.com/jsapi?key=ABQIAAAA9S76sdh5KSPpfr65zxQHGBT-rU0CFRjazioGWeeHjJLEyYXO2RSmaFbEdGganPrQRY2l3ORmYrTPpA'></script>
+<script src="http://d3nn82uaxijpm6.cloudfront.net/assets/strava/invites/manifest-6f22dbf61d0389e65aaece6f71c0501d.js" type="text/javascript"></script>
+<script>
+  Strava.Google.CI = "541588808765.apps.googleusercontent.com";
+  google.load("gdata", "1.x");
+  jQuery(document).ready(function() {
+    inviteController = new Strava.Invites.InviteController(
+      {
+        athlete_id: 7394807,
+        athlete_first_name: 'Jiří',
+        athlete_url: 'http://www.strava.com/athletes/7394807',
+        strava_logo_url: 'http://d3nn82uaxijpm6.cloudfront.net/assets/common/strava-logo-25c65f3ed9f2d49c21e83c51b2153887.png',
+        invite_link: 'http://www.strava.com/?utm_content=7394807&utm_medium=facebook&utm_source=member_referral'
+      });
+    inviteView = new Strava.Invites.InviteButtonView(inviteController, '.find-and-invite');
+    if (window.location.hash === '#invite') {
+      Strava.Invites.InviteLightboxView.show(inviteController);
+    }
+  });
+</script>
+
+<script>
+  jQuery(document).ready(function(){
+    var values = [];
+    Strava.module('Strava.Features');
+    Strava.Features.current = values;
+  });
+</script>
+</body>
+</html>
